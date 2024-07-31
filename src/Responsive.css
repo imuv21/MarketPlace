@@ -1,0 +1,50 @@
+/* responsiveness */
+@media (max-width: 800px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .three {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .component {
+        height: 50px;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .headingBig {
+        font-size: 24px;
+    }
+
+    .heading {
+        font-size: 18px;
+    }
+
+    .headingSmol {
+        font-size: 14px;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .header-burger {
+        display: flex;
+    }
+
+    .one,
+    .logo {
+        display: none;
+    }
+}
+
+@media (max-width: 440px) {
+    .page{
+        padding: 30px 40px;
+    }
+}

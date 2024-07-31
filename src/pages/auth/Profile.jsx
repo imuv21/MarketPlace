@@ -1,0 +1,253 @@
+import React, { Fragment, useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProfile } from '../../slices/authSlice';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
+import VerifiedIcon from '@mui/icons-material/Verified';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import ClearIcon from '@mui/icons-material/Clear';
+
+const Profile = () => {
+
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+
+  // edit profile
+  // profile photo upload functionality
+  const defImg = 'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg';
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(defImg);
+
+  useEffect(() => {
+    if (user && user.image) {
+      setImageUrl(user.image);
+    }
+  }, [user]);
+
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setSelectedImage(file);
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImageUrl(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const handleUploadClick = () => {
+    document.getElementById('avatar').click();
+  };
+
+  //countries
+  const [countries, setCountries] = useState([]);
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        const response = await axios.get('https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json');
+        const data = response.data;
+        const uniqueCountries = [...new Set(data.map(city => city.country))];
+        setCountries(uniqueCountries);
+      } catch (error) {
+        console.error("Error fetching countries: ", error);
+      }
+    };
+    fetchCountries();
+  }, []);
+
+  //clicks
+  const [isClickedFooter, setIsClickedFooter] = useState(false);
+  const [isClickedAvatar, setIsClickedAvatar] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const handleClickFooter = (event) => {
+    event.preventDefault();
+    setIsClickedFooter(true);
+  };
+  const handleClickAvatar = (event) => {
+    event.preventDefault();
+    setIsClickedAvatar(true);
+  }
+  const closepopup = (event) => {
+    event.preventDefault();
+    setIsClickedFooter(false);
+  }
+  const closepopupAvatar = (event) => {
+    event.preventDefault();
+    setIsClickedAvatar(false);
+  }
+  const [formValues, setFormValues] = useState({
+    firstName: '',
+    lastName: '',
+    country: '',
+    image: null
+  });
+  useEffect(() => {
+    if (user) {
+      setFormValues({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        country: user.country,
+        image: user.image || defImg
+      });
+    }
+  }, [user]);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value
+    });
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (isSubmitted) return;
+    setIsSubmitted(true);
+    try {
+
+      const formData = new FormData();
+      formData.append('firstName', formValues.firstName);
+      formData.append('lastName', formValues.lastName);
+      formData.append('country', formValues.country);
+      if (selectedImage) {
+        formData.append('image', selectedImage);
+      }
+
+      const response = await dispatch(updateProfile(formData)).unwrap();
+      if (response.status === "success") {
+        alert(response.message);
+      } else {
+        alert(response.message);
+      }
+    } catch (error) {
+      alert('Profile update failed');
+    } finally {
+      setIsClickedFooter(false);
+      setIsSubmitted(false);
+    }
+  };
+
+  //toasts
+  const errtoastClick = () => {
+    toast(<div className='flex center g5'> < NewReleasesIcon /> Profile deleted successfully</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+  }
+  const toastClick = () => {
+    toast(<div className='flex center g5'> < VerifiedIcon /> Profile created successfully</div>, { duration: 3000, position: 'top-center', style: { color: 'rgb(0, 189, 0)' }, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+  }
+  useEffect(() => {
+    const handleScroll = () => {
+      if (isClickedFooter || isClickedAvatar) {
+        setIsClickedFooter(false);
+        setIsClickedAvatar(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isClickedFooter, isClickedAvatar]);
+
+  //password protect
+  const [showPassword, setShowPassword] = useState(false);
+  const seePassword = () => {
+    setShowPassword( prev => !prev);
+  }
+
+
+  return (
+    <Fragment>
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
+      <div className="page flex center-start">
+        <div className="profile flexcol start">
+          <div className="heading black">Profile</div>
+          <div className="pagebox10 flexcol start-center">
+
+            <div className={`popup-avatar ${isClickedAvatar ? 'clicked' : ''}`}>
+              <img onClick={handleClickAvatar} src={imageUrl} alt="Profile" className="avatar" />
+              {isClickedAvatar && (
+                <div className="popup">
+                  <div className="popup-wrapper-avatar">
+                    <img src={imageUrl} alt="Full Picture" className='bigAvatar' />
+                    <ClearIcon onClick={closepopupAvatar} />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="pagebox20 flex center-space">
+              <div className="textBig blue">Name :</div>
+              <div className="textBig blue">{user.firstName} {user.lastName}</div>
+            </div>
+            <div className="pagebox20 flex center-space">
+              <div className="textBig blue">Email :</div>
+              <div className="textBig blue verify flex center-start g5">{user.email}
+                {user.isVerified === 1 ? <VerifiedIcon /> : <NewReleasesIcon style={{ color: 'orange' }} />}
+              </div>
+            </div>
+            <div className="pagebox20 flex center-space">
+              <div className="textBig blue">Role :</div>
+              <div className="textBig blue">{user.role}</div>
+            </div>
+            <div className="pagebox20 flex center-space">
+              <div className="textBig blue">Password :</div>
+              <div className="textBig blue" style={{ cursor: 'pointer'}} onClick={seePassword}> { showPassword ? user.password : '***********' } </div>
+            </div>
+            <div className="pagebox20 flex center-space">
+              <div className="textBig blue">Country :</div>
+              <div className="textBig blue">{user.country}</div>
+            </div>
+          </div>
+
+          <div className="pagebox20 flex center-start">
+            <button className='btn' onClick={errtoastClick}>Update Email</button>
+            <button className='btn'>Update Password</button>
+
+            <div className={`popup-btn ${isClickedFooter ? 'clicked' : ''}`}>
+              <button className='btn' onClick={handleClickFooter}>Edit Profile</button>
+              {isClickedFooter && (
+                <div className="popup">
+                  <form className="popup-wrapper" onSubmit={handleSubmit}>
+                    <div className="heading blue">Update Profile</div>
+
+                    <div className="flexcol center">
+                      <div className="relative">
+                        <img src={imageUrl ? imageUrl : defImg} alt="Profile" className="avatar" />
+                        <div className="avatar-edit-icon" onClick={handleUploadClick}>
+                          <img src="https://res.cloudinary.com/dfsohhjfo/image/upload/v1721197484/MarketPlace/4850478_upload_uploading_save_arrow_up_icon_haje1x.png" alt="edit-icon" />
+                        </div>
+                      </div>
+                      <input id="avatar" type="file" accept="image/*" onChange={handleImageChange} style={{ display: 'none' }} />
+                    </div>
+
+                    <input type="text" name='firstName' autoComplete='name' placeholder='Enter your first name...' value={formValues.firstName} onChange={handleInputChange} required />
+                    <input type="text" name='lastName' autoComplete='name' placeholder='Enter your last name...' value={formValues.lastName} onChange={handleInputChange} required />
+
+                    <select name='country' value={formValues.country} onChange={handleInputChange} required>
+                      <option value="">Choose your country</option>
+                      {countries.map((country) => (
+                        <option key={uuidv4()} value={country}>{country}</option>
+                      ))}
+                    </select>
+
+                    <div className="flex center g20 wh">
+                      <button type='submit' disabled={isSubmitted}>{isSubmitted ? 'Updating...' : 'Update'}</button>
+                      <button type="button" onClick={closepopup} className="btn">Cancel</button>
+                    </div>
+
+                  </form>
+                </div>
+              )}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </Fragment>
+  )
+}
+
+export default Profile

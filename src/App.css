@@ -1,0 +1,837 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+  --font: 'Roboto', sans-serif;
+  --fosi: clamp(24px, 4vw, 40px);
+  --infont: 12px;
+
+  --top: #CAF4FF;
+  --bottom: #A0DEFF;
+  --footer: #5AB2FF;
+
+  --bg: radial-gradient(circle at 20% 0%, rgba(49, 210, 255, 0.30) 1%, transparent 40%), radial-gradient(circle at 80% 0%, rgba(49, 210, 255, 0.30) 1%, transparent 40%);
+  --trans: all 0.4s ease-in-out;
+  --br: 3px;
+  --br2: 8px;
+  --shadow: rgb(146, 146, 146) 5px 5px 10px 0px;
+  --shadowsmall: rgb(146, 146, 146) 2px 2px 3px 0px;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  border-radius: 0px;
+  font-family: var(--font);
+  font-size: var(--infont);
+  text-transform: capitalize;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  text-decoration: none;
+  border: none;
+}
+
+body {
+  background: white;
+}
+
+a {
+  cursor: pointer;
+  color: black;
+}
+
+li {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: black;
+}
+
+select,
+textarea,
+input {
+  padding: 10px;
+  border-radius: var(--br);
+  width: 100%;
+  border: 1px solid var(--footer);
+  color: var(--footer);
+  transition: var(--trans);
+}
+
+textarea,
+input::placeholder {
+  color: var(--footer);
+}
+
+input,
+select,
+textarea:focus {
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  display: none;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+select::-webkit-scrollbar {
+  width: 15px;
+}
+
+select::-webkit-scrollbar-thumb {
+  background-color: var(--footer);
+  border-radius: var(--br2);
+}
+
+button {
+  width: fit-content;
+  cursor: pointer;
+  transition: var(--trans);
+  display: flex;
+  padding: 10px 30px;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: var(--br);
+  background: var(--footer);
+  color: white;
+  border: 1px solid var(--footer);
+}
+
+button:hover {
+  background: white;
+  color: var(--footer);
+}
+
+button:focus {
+  outline: none;
+}
+
+.disabled {
+  background: rgb(207, 207, 207);
+  border: 1px solid rgb(207, 207, 207);
+}
+
+.disabled:hover {
+  background: white;
+  color: rgb(207, 207, 207);
+}
+
+.wh {
+  width: 100%;
+}
+
+.g5 {
+  gap: 5px;
+}
+
+.g10 {
+  gap: 10px;
+}
+
+.g15 {
+  gap: 15px;
+}
+
+.g20 {
+  gap: 20px;
+}
+
+.relative {
+  position: relative;
+}
+
+.centertext {
+  text-align: center;
+}
+
+.outline1 {
+  outline: 1px solid blue;
+}
+
+.outline2 {
+  outline: 1px solid limegreen;
+}
+
+.outline3 {
+  outline: 1px solid orange;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.flexcol {
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.start {
+  align-items: start;
+  justify-content: start;
+}
+
+.end {
+  align-items: end;
+  justify-content: end;
+}
+
+.center-start {
+  align-items: center;
+  justify-content: start;
+}
+
+.start-center {
+  align-items: start;
+  justify-content: center;
+}
+
+.end-start {
+  align-items: end;
+  justify-content: start;
+}
+
+.start-end {
+  align-items: start;
+  justify-content: end;
+}
+
+.center-end {
+  align-items: center;
+  justify-content: end;
+}
+
+.end-center {
+  align-items: end;
+  justify-content: center;
+}
+
+.center-space {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.black {
+  color: black;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: var(--footer);
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.headingBig {
+  font-size: 36px;
+  font-weight: 800;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.headingSmol {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.textBig {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.text {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.textSmol {
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.error {
+  font-size: 10px;
+  font-weight: 400;
+  color: rgb(255, 0, 123);
+  width: 100%;
+  padding: 0px 10px;
+}
+
+.hover {
+  cursor: pointer;
+  opacity: 1;
+  transition: var(--trans);
+}
+
+.hover:hover {
+  opacity: 0.6;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Header and Footer */
+.header-burger {
+  display: none;
+  cursor: pointer;
+}
+
+.nav-mobile {
+  gap: 10px;
+  cursor: pointer;
+}
+
+.header-burger .MuiSvgIcon-root {
+  width: 30px;
+  height: 30px;
+  color: black;
+}
+
+.nav-mobile .MuiSvgIcon-root {
+  width: 25px;
+  height: 25px;
+  color: black;
+  transition: var(--trans);
+}
+
+.nav-mobile .MuiSvgIcon-root:hover {
+  color: rgb(134, 134, 134);
+}
+
+.drawer {
+  width: 250px;
+  padding: 50px 50px 50px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+}
+
+.drawer a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.component {
+  width: 100%;
+  height: 70px;
+  padding: 10px 20px;
+  gap: 20px;
+}
+
+.componentForLayout {
+  width: 100%;
+  height: 70px;
+}
+
+.header {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  filter: drop-shadow(2px 1px 6px rgb(174, 173, 173));
+  background: linear-gradient(var(--top), var(--bottom));
+}
+
+.footer {
+  background: var(--footer);
+}
+
+.logo {
+  width: 80px;
+  aspect-ratio: 4/3;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.search-component{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+}
+
+.clear-btn{
+  padding: 4px 15px;
+}
+
+/* Login / Signup component  */
+.authpage {
+  background: var(--top);
+  width: 100%;
+  height: 100vh;
+  padding: 60px 100px;
+  gap: 20px;
+}
+
+.box {
+  width: 70%;
+  max-width: 70%;
+  min-width: 300px;
+  border-radius: var(--br2);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  gap: 10px;
+  background: white;
+}
+
+.relative span {
+  position: absolute;
+  right: 10px;
+  top: 20%;
+}
+
+.relative span .MuiSvgIcon-root {
+  color: var(--footer);
+  cursor: pointer;
+}
+
+/*layout grid styling */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  padding: 5px;
+}
+
+.grid-item2 {
+  padding: 10px;
+  outline: 1px solid black;
+  color: white;
+}
+
+.three {
+  background-color: rgb(61, 61, 61);
+}
+
+/* profile styling */
+.profile {
+  width: 40%;
+  height: 100vh;
+  gap: 20px;
+}
+
+.verify .MuiSvgIcon-root {
+  width: 16px;
+  height: 16px;
+  color: var(--footer);
+}
+
+/* profile photo */
+.bigAvatar {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.avatar-edit-icon {
+  position: absolute;
+  bottom: 7px;
+  right: 7px;
+  background-color: white;
+  border-radius: 50%;
+  padding: 1px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-edit-icon img {
+  width: 20px;
+  height: 20px;
+  color: gray;
+  cursor: pointer;
+}
+
+
+
+/*this is a perfect grid */
+.perfect-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.grid-item {
+  position: relative;
+  box-shadow: 4px 4px 10px black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  transition: var(--trans);
+}
+
+.grid-item.dragging {
+  opacity: 0.5;
+  transform: scale(1.05);
+}
+
+.grid-item img {
+  width: 100%;
+  height: 260px;
+  aspect-ratio: 4/3;
+  object-fit: fill;
+  border-radius: 10px;
+  transition: var(--trans);
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.socialDetail {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.socialDetail .MuiSvgIcon-root {
+  width: 15px;
+  height: 15px;
+}
+
+.detail .MuiSvgIcon-root {
+  width: 15px;
+  height: 15px;
+  color: yellow;
+  filter: drop-shadow(1px 1px 1px black);
+}
+
+
+/* icons on image  */
+.iconsOnImage {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.iconsOnImage .flex {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  color: rgb(84, 84, 84);
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transition: var(--trans);
+}
+
+.iconsOnImage .flex .MuiSvgIcon-root {
+  width: 14px;
+  height: 14px;
+}
+
+.grid-item:hover .iconsOnImage .flex {
+  opacity: 1;
+}
+
+
+/* and this is a perfect popup */
+.popup-btn {
+  position: relative;
+}
+
+.popup-avatar {
+  position: relative;
+}
+
+.popup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(9, 9, 9, 0.732);
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 1;
+}
+
+.popup-wrapper {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+  gap: 10px;
+  background: white;
+  padding: 15px 25px;
+  filter: drop-shadow(7px 7px 10px rgb(48, 48, 48));
+}
+
+.popup-wrapper-avatar {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
+  border-radius: 10px;
+  gap: 5px;
+  background: none;
+}
+
+.popup-wrapper-avatar .MuiSvgIcon-root {
+  width: 30px;
+  height: 30px;
+  color: black;
+  cursor: pointer;
+}
+
+.popup-btn .popup {
+  opacity: 0;
+  bottom: -10px;
+  transition: opacity 0.3s ease, bottom 0.3s ease;
+}
+
+.popup-avatar .popup {
+  opacity: 0;
+  bottom: -10px;
+  transition: opacity 0.3s ease, bottom 0.3s ease;
+}
+
+.popup-btn.clicked .popup {
+  opacity: 1;
+  bottom: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.popup-avatar.clicked .popup {
+  opacity: 1;
+  bottom: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* header popup */
+.notification-btn {
+  position: relative;
+}
+
+.notification-popup {
+  transform: translateX(-70%);
+  width: 230px;
+  padding: 10px;
+  gap: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 60px;
+  right: 10px;
+  height: fit-content;
+  border-radius: var(--br2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  background-color: white;
+  z-index: 1;
+}
+
+.notification-btn .notification-popup {
+  opacity: 0;
+  bottom: -10px;
+  transition: opacity 0.3s ease, bottom 0.3s ease;
+}
+
+.notification-btn.clicked .notification-popup {
+  opacity: 1;
+  bottom: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* social */
+.response-btn{
+  padding: 4px 10px;
+  width: 100%;
+}
+.response-btnOne:hover{
+  background: white;
+  color: red;
+  border: 1px solid red;
+}
+.response-btnTwo:hover{
+  background: white;
+  color: green;
+  border: 1px solid green;
+}
+
+.addFriend {
+  padding: 3px 5px;
+  width: 100%;
+}
+
+.notification{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  gap: 10px;
+  padding: 5px;
+  border-radius: var(--br2);
+  transition: var(--trans);
+  background-color: #f2f2f2;
+}
+
+.notification:hover{
+  background-color: #e9e9e9;
+}
+
+.notification img{
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.notification .MuiSvgIcon-root{
+  cursor: pointer;
+  color: var(--footer);
+  background-color: white;
+  border-radius: 50%;
+  padding: 4px;
+  width: 20px;
+  height: 20px;
+}
+
+.notification-number{
+  width: 15px;
+  height: 15px;
+  padding: 2px;
+  background-color: var(--footer);
+  color: black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -5px;
+  right: -3px;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* General styling */
+.page {
+  background: var(--top);
+  width: 100%;
+  padding: 60px 100px;
+  gap: 20px;
+}
+
+.pagebox10 {
+  width: 100%;
+  gap: 10px;
+}
+
+.pagebox15 {
+  width: 100%;
+  gap: 15px;
+}
+
+.pagebox20 {
+  width: 100%;
+  gap: 20px;
+}
+
+.failed {
+  filter: drop-shadow(5px 5px 3px rgb(255, 166, 166));
+  color: rgb(255, 0, 0);
+}
+
+.success {
+  filter: drop-shadow(5px 5px 3px rgb(167, 255, 167));
+  color: rgb(0, 189, 0);
+}
