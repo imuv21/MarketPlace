@@ -61,9 +61,9 @@ const Login = () => {
 
 
   //Login with google
-  const loginWithGoogle = () => {
-    window.open(`http://localhost:8000/auth/google/callback`, '_self');
-  }
+  // const loginWithGoogle = () => {
+  //   window.open(`http://localhost:8000/auth/google/callback`, '_self');
+  // }
 
 
   return (

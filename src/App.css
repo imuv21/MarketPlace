@@ -244,7 +244,7 @@ button:focus {
   color: var(--footer);
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }
 
@@ -388,7 +388,7 @@ button:focus {
   cursor: pointer;
 }
 
-.search-component{
+.search-component {
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -397,7 +397,7 @@ button:focus {
   padding: 10px;
 }
 
-.clear-btn{
+.clear-btn {
   padding: 4px 15px;
 }
 
@@ -721,16 +721,18 @@ button:focus {
 }
 
 /* social */
-.response-btn{
+.response-btn {
   padding: 4px 10px;
   width: 100%;
 }
-.response-btnOne:hover{
+
+.response-btnOne:hover {
   background: white;
   color: red;
   border: 1px solid red;
 }
-.response-btnTwo:hover{
+
+.response-btnTwo:hover {
   background: white;
   color: green;
   border: 1px solid green;
@@ -741,7 +743,7 @@ button:focus {
   width: 100%;
 }
 
-.notification{
+.notification {
   display: flex;
   align-items: center;
   justify-content: start;
@@ -753,18 +755,18 @@ button:focus {
   background-color: #f2f2f2;
 }
 
-.notification:hover{
+.notification:hover {
   background-color: #e9e9e9;
 }
 
-.notification img{
+.notification img {
   width: 30px;
   height: 30px;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.notification .MuiSvgIcon-root{
+.notification .MuiSvgIcon-root {
   cursor: pointer;
   color: var(--footer);
   background-color: white;
@@ -774,7 +776,7 @@ button:focus {
   height: 20px;
 }
 
-.notification-number{
+.notification-number {
   width: 15px;
   height: 15px;
   padding: 2px;
@@ -790,6 +792,131 @@ button:focus {
   font-size: 9px;
   font-weight: 600;
 }
+
+
+/* chat styling */
+.chat-component {
+  height: 500px;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--br2);
+  background-color: var(--bottom);
+}
+
+.reciever {
+  width: 100%;
+  gap: 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  border-radius: var(--br2);
+  background-color: var(--bottom);
+  margin-bottom: 10px;
+}
+
+.reciever img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.reciever .MuiSvgIcon-root {
+  width: 18px;
+  height: 18px;
+  color: gray;
+}
+
+.chatBody {
+  width: 100%;
+  height: 400px;
+  gap: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-radius: var(--br2);
+  background-color: var(--top);
+}
+
+.senderChat {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.recieverChat {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.senderMsg {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px 10px;
+  background-color: rgb(143, 255, 143);
+  border-radius: var(--br2);
+}
+
+.recieverMsg {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px 10px;
+  background-color: rgb(255, 200, 200);
+  border-radius: var(--br2);
+}
+
+.timestamp {
+  font-size: 8px;
+  font-weight: 400;
+  color: gray;
+}
+
+.sendInput {
+  width: 100%;
+  height: 50px;
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--br2);
+  background-color: var(--bottom);
+}
+
+.sendInput input {
+  border-radius: var(--br2);
+  border: none;
+}
+
+.sendInput button {
+  border-radius: var(--br2);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

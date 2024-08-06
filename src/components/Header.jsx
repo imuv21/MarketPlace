@@ -4,6 +4,7 @@ import { Menu, Login, Logout, Search as SearchIcon, ShoppingCart, AccountCircle 
 import Drawer from '@mui/material/Drawer';
 import images from '../assets/images.json';
 import { useDispatch, useSelector } from 'react-redux';
+import { getNotifications } from '../slices/usersSlice';
 import { logoutUser } from '../slices/authSlice';
 import { toast } from 'react-hot-toast';
 import VerifiedIcon from '@mui/icons-material/Verified';
@@ -18,9 +19,21 @@ const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
   const token = useSelector((state) => state.auth.token);
+  const { notifications, loadingNotifications, errorNotifications } = useSelector((state) => state.users);
+
+  const friendReq = 'has sent you friend request.';
+  const acceptReq = 'has accepted your friend request.';
+  const rejectReq = 'has rejected your friend request.';
+  const unfriend = 'has removed you from his friend list.';
+
+  const typeOne = "friend_request";
+  const typeTwo = "friend_request_accepted";
+  const typeThree = "friend_request_rejected";
+  const typeFour = "unfriend";
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const defImg = 'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg';
+
 
   const logout = async (e) => {
     e.preventDefault();
@@ -62,11 +75,24 @@ const Header = () => {
   }
 
   //notification
-  const userName = 'John Doe';
-  const notificationNumbers = 3;
   const [isNotification, setIsNotification] = useState(false);
   const isNotificationRef = useRef(null);
   const popupIsNotificationRef = useRef(null);
+
+  const getMessageForType = (type) => {
+    switch (type) {
+      case typeOne:
+        return friendReq;
+      case typeTwo:
+        return acceptReq;
+      case typeThree:
+        return rejectReq;
+      case typeFour:
+        return unfriend;
+      default:
+        return '';
+    }
+  };
 
   const closeAllPopups = () => {
     setIsNotification(false);
@@ -89,6 +115,10 @@ const Header = () => {
   };
 
   useEffect(() => {
+    dispatch(getNotifications());
+  }, [dispatch]);
+
+  useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -105,6 +135,7 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
 
 
 
@@ -125,17 +156,30 @@ const Header = () => {
 
           <div ref={isNotificationRef} onClick={handleOpenNotification} className={`notification-btn ${isNotification ? 'clicked' : ''}`}>
             <NotificationsIcon />
-            <div className="notification-number">{notificationNumbers}</div>
+            {notifications && notifications.length > 0 && (<div className="notification-number">{notifications.length}</div>)}
             {isNotification && (
               <div ref={popupIsNotificationRef} className="notification-popup">
-                <div className="notification"><img src={defImg} alt="User" /> {`${userName} sent you friend request.`} </div>
-                <div className="notification"><img src={defImg} alt="User" /> {`${userName} sent you a message.`} </div>
-                <div className="notification"><img src={defImg} alt="User" /> {`${userName} sent you friend request.`} </div>
+
+                {loadingNotifications && <div className='text'>Loading...</div>}
+                {errorNotifications && <div className='text'>{errorNotifications.message}</div>}
+                {!loadingNotifications && !errorNotifications && notifications && notifications.length === 0 && (
+                  <div className="text">There are no notifications.</div>
+                )}
+
+                {!loadingNotifications && !errorNotifications && notifications && notifications.length > 0 && (
+                  notifications.map(not => (
+                    <div key={not._id}>
+                      <div className="notification">
+                        <img src={not.fromUser.image} alt={not.fromUser.firstName} /> {not.fromUser.firstName} {not.fromUser.lastName} {getMessageForType(not.type)}
+                      </div>
+                    </div>
+                  ))
+                )}
+
                 <div className="textSmol hover" onClick={openNotification}>See all</div>
               </div>
             )}
           </div>
-
 
           <Logout onClick={logout} />
           {!token && <Login onClick={login} />}

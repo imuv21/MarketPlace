@@ -78,12 +78,14 @@ const Profile = () => {
     event.preventDefault();
     setIsClickedAvatar(false);
   }
+
   const [formValues, setFormValues] = useState({
     firstName: '',
     lastName: '',
     country: '',
     image: null
   });
+
   useEffect(() => {
     if (user) {
       setFormValues({
@@ -94,6 +96,7 @@ const Profile = () => {
       });
     }
   }, [user]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -101,6 +104,7 @@ const Profile = () => {
       [name]: value
     });
   };
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (isSubmitted) return;

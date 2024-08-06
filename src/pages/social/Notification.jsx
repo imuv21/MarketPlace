@@ -32,10 +32,12 @@ const Notification = () => {
     const friendReq = 'has sent you friend request.';
     const acceptReq = 'has accepted your friend request.';
     const rejectReq = 'has rejected your friend request.';
+    const unfriend = 'has removed you from his friend list.';
 
     const typeOne = "friend_request";
     const typeTwo = "friend_request_accepted";
     const typeThree = "friend_request_rejected";
+    const typeFour = "unfriend";
 
     const getMessageForType = (type) => {
         switch (type) {
@@ -45,6 +47,8 @@ const Notification = () => {
                 return acceptReq;
             case typeThree:
                 return rejectReq;
+            case typeFour:
+                return unfriend;
             default:
                 return '';
         }

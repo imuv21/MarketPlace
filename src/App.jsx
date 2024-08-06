@@ -22,6 +22,7 @@ const Discover = lazy(() => import('./pages/social/Discover'));
 const FriendList = lazy(() => import('./pages/social/FriendList'));
 const FriendReq = lazy(() => import('./pages/social/FriendReq'));
 const Notification = lazy(() => import('./pages/social/Notification'));
+const Chat = lazy(() => import('./pages/social/Chat'));
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
             <Route path='/friend-list' element={<Layout><FriendList /></Layout>} />
             <Route path='/friend-requests' element={<Layout><FriendReq /></Layout>} />
             <Route path='/notifications' element={<Layout><Notification /></Layout>} />
+            <Route path='/chat/:receiverId' element={<Layout><Chat /></Layout>} />
           </Route>
 
 

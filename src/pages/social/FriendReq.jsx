@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFriendReqs } from '../../slices/usersSlice';
+import { responseToFriendRequest } from '../../slices/friendsSlice';
 import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-hot-toast';
 import PublicIcon from '@mui/icons-material/Public';
 import PersonIcon from '@mui/icons-material/Person';
 import VerifiedIcon from '@mui/icons-material/Verified';
@@ -15,20 +17,39 @@ const FriendReq = () => {
 
     const dispatch = useDispatch();
     const { friendReqs, loadingFriendReqs, errorFriendReqs } = useSelector((state) => state.users);
+    const { rtrError } = useSelector((state) => state.friends);
 
     useEffect(() => {
         dispatch(getFriendReqs());
     }, [dispatch]);
 
-    const acceptFriendHandler = (id) => {
-        // const data = { friendId: id }
-        // dispatch(sendFriendRequest(data));
+    const acceptFriendHandler = async (id) => {
+        try {
+            const result = await dispatch(responseToFriendRequest({ response: 'accept', friendId: id })).unwrap();
+            if (result.status === 'success') {
+                toast(<div className='flex center g5'> < VerifiedIcon />{result.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'rgb(0, 189, 0)' }, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+                dispatch(getFriendReqs());
+            } else {
+                toast(<div className='flex center g5'> < NewReleasesIcon />{rtrError.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+            }
+        } catch (error) {
+            toast(<div className='flex center g5'> < NewReleasesIcon />{error.message || 'Something went wrong'}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+        }
     }
-    const rejectFriendHandler = (id) => {
-        // const data = { friendId: id }
-        // dispatch(sendFriendRequest(data));
+
+    const rejectFriendHandler = async (id) => {
+        try {
+            const result = await dispatch(responseToFriendRequest({ response: 'reject', friendId: id })).unwrap();
+            if (result.status === 'success') {
+                toast(<div className='flex center g5'> < VerifiedIcon />{result.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'rgb(0, 189, 0)' }, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+                dispatch(getFriendReqs());
+            } else {
+                toast(<div className='flex center g5'> < NewReleasesIcon />{rtrError.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+            }
+        } catch (error) {
+            toast(<div className='flex center g5'> < NewReleasesIcon />{error.message || 'Something went wrong'}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+        }
     }
-  
 
 
     return (
@@ -47,7 +68,7 @@ const FriendReq = () => {
                     {loadingFriendReqs && <div className="text">Loading...</div>}
                     {errorFriendReqs && <div className="text">Error: {errorFriendReqs.message}</div>}
                     {!loadingFriendReqs && !errorFriendReqs && friendReqs && friendReqs.length === 0 && (
-                        <div className="text">There are no users yet.</div>
+                        <div className="text"> No one wants to be your friend.</div>
                     )}
                     {!loadingFriendReqs && !errorFriendReqs && friendReqs && friendReqs.length > 0 && friendReqs.map((item) => (
                         <div className="grid-item" key={uuidv4()}>
