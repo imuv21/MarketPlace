@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 
-
-const Cart = () => {
-
+const Other = () => {
   return (
     <Fragment>
       <Helmet>
@@ -16,4 +14,4 @@ const Cart = () => {
   )
 };
 
-export default Cart;
+export default Other;

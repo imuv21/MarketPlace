@@ -24,7 +24,6 @@ const Chat = () => {
 
     const sendText = async (e) => {
         e.preventDefault();
-        if (!messageContent) return;
         if (sending) return;
         setSending(true);
         try {
@@ -90,7 +89,7 @@ const Chat = () => {
                     </div>
 
                     <form className="sendInput" onSubmit={sendText}>
-                        <input type="text" value={messageContent} onChange={(e) => setMessageContent(e.target.value)} placeholder="Type your message..." />
+                        <input type="text" value={messageContent} onChange={(e) => setMessageContent(e.target.value)} placeholder="Type your message..." required/>
                         <button type='submit' disabled={sending}>{sending ? 'Sending...' : 'Send'}</button>
                     </form>
                 </div>

@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 
+
 const Protector = lazy(() => import('./components/Protector'));
 const Layout = lazy(() => import('./components/Layout'));
 
@@ -23,6 +24,12 @@ const FriendList = lazy(() => import('./pages/social/FriendList'));
 const FriendReq = lazy(() => import('./pages/social/FriendReq'));
 const Notification = lazy(() => import('./pages/social/Notification'));
 const Chat = lazy(() => import('./pages/social/Chat'));
+const Shoping = lazy(() => import('./pages/payment/Shoping'));
+const Order = lazy(() => import('./pages/payment/Order'));
+const GameDashboard = lazy(() => import('./pages/games/GameDashboard'));
+const Snake = lazy(() => import('./pages/games/Snake'));
+const TextToSpeech = lazy(() => import('./pages/games/TextToSpeech'));
+const Success = lazy(() => import('./pages/payment/Success'));
 
 function App() {
 
@@ -38,6 +45,8 @@ function App() {
           <Route element={<Protector user={user} />}>
             <Route path='/' element={<Layout><Home /></Layout>} />
             <Route path='/cart' element={<Layout><Cart /></Layout>} />
+            <Route path='/shoping' element={<Layout><Shoping /></Layout>} />
+            <Route path='/order' element={<Layout><Order /></Layout>} />
             <Route path='/add-new-movie' element={<Layout><FilterPage /></Layout>} />
             <Route path='/profile' element={<Layout><Profile /></Layout>} />
             <Route path='/discover' element={<Layout><Discover /></Layout>} />
@@ -45,6 +54,10 @@ function App() {
             <Route path='/friend-requests' element={<Layout><FriendReq /></Layout>} />
             <Route path='/notifications' element={<Layout><Notification /></Layout>} />
             <Route path='/chat/:receiverId' element={<Layout><Chat /></Layout>} />
+            <Route path='/play-games' element={<Layout><GameDashboard /></Layout>} />
+            <Route path='/snake' element={<Snake />}  />
+            <Route path='/text-to-speech' element={<Layout><TextToSpeech /></Layout>}  />
+            <Route path='/payment-success' element={<Success />} />
           </Route>
 
 

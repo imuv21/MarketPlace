@@ -137,9 +137,7 @@ const Profile = () => {
   const errtoastClick = () => {
     toast(<div className='flex center g5'> < NewReleasesIcon /> Profile deleted successfully</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
   }
-  const toastClick = () => {
-    toast(<div className='flex center g5'> < VerifiedIcon /> Profile created successfully</div>, { duration: 3000, position: 'top-center', style: { color: 'rgb(0, 189, 0)' }, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite' } });
-  }
+ 
   useEffect(() => {
     const handleScroll = () => {
       if (isClickedFooter || isClickedAvatar) {
