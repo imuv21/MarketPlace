@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
+import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -45,25 +46,31 @@ const Success = () => {
   }
 
   return (
-    <div className="flexcol center page" style={{ height: '100vh' }}>
-      <div className="heading">Order placed successfully!</div>
-      {details ? (
-        <div className='flexcol center wh'>
-          <div className="text">Reference no: {paymentId}</div>
-          <div className="text">Order id: {details.order_id}</div>
-          <div className="text">Order amount: {details.amount / 100}</div>
-          <div className="text">Fee: {details.fee / 100}</div>
-          <div className="text">Tax: {details.tax / 100}</div>
-          <div className="text">Order currency: {details.currency}</div>
-          <div className="text">Payment method: {details.method}</div>
-          <div className="text">Order description: {details.description}</div>
-          <div className="text">Address: {details.notes.address}</div>
-        </div>
-      ) : (
-        <div className="text">No payment details found.</div>
-      )}
-      <button onClick={backToHome}>Back to Homepage</button>
-    </div>
+    <Fragment>
+      <Helmet>
+        <title>Payment Success</title>
+      </Helmet>
+      <div className="flexcol center page" style={{ height: '100vh' }}>
+        <div className="heading">Order placed successfully!</div>
+        {details ? (
+          <div className='flexcol center wh'>
+            <div className="text">Reference no: {paymentId}</div>
+            <div className="text">Order id: {details.order_id}</div>
+            <div className="text">Order amount: {details.amount / 100}</div>
+            <div className="text">Fee: {details.fee / 100}</div>
+            <div className="text">Tax: {details.tax / 100}</div>
+            <div className="text">Order currency: {details.currency}</div>
+            <div className="text">Payment method: {details.method}</div>
+            <div className="text">Order description: {details.description}</div>
+            <div className="text">Address: {details.notes.address}</div>
+          </div>
+        ) : (
+          <div className="text">No payment details found.</div>
+        )}
+        <button onClick={backToHome}>Back to Homepage</button>
+      </div>
+    </Fragment>
+
   );
 };
 

@@ -30,6 +30,7 @@ const GameDashboard = lazy(() => import('./pages/games/GameDashboard'));
 const Snake = lazy(() => import('./pages/games/Snake'));
 const TextToSpeech = lazy(() => import('./pages/games/TextToSpeech'));
 const Success = lazy(() => import('./pages/payment/Success'));
+const Failed = lazy(() => import('./pages/payment/Failed'));
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
             <Route path='/snake' element={<Snake />}  />
             <Route path='/text-to-speech' element={<Layout><TextToSpeech /></Layout>}  />
             <Route path='/payment-success' element={<Success />} />
+            <Route path='/payment-failed' element={<Failed />} />
           </Route>
 
 
@@ -69,7 +71,7 @@ function App() {
           </Route>
 
           {/* not found */}
-          <Route path='*' element={<div className="page flex center heading">Are you kidding me? Kuchh bhi!</div>} />
+          {/* <Route path='*' element={<div className="page flex center heading">Are you kidding me? Kuchh bhi!</div>} /> */}
 
         </Routes>
       </Suspense>
