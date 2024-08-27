@@ -53,7 +53,8 @@ const Chat = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Chat</title>
+                <title>Chat | MarketPlace</title>
+                <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
             </Helmet>
             <div className='page flexcol center'>
                 <div className="chat-component">

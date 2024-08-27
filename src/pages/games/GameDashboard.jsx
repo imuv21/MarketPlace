@@ -20,7 +20,8 @@ const GameDashboard = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Games Dashboard</title>
+        <title>Games Dashboard | MarketPlace</title>
+        <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
       </Helmet>
       <div className='page flexcol wh'>
 

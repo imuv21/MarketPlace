@@ -7,7 +7,8 @@ const Cart = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Cart Page</title>
+        <title>Cart Page | MarketPlace</title>
+        <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
       </Helmet>
       <div className='page flex center'>
         cart

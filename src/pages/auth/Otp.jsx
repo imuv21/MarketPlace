@@ -34,15 +34,15 @@ const Otp = () => {
         if (isOtpComplete) {
             try {
                 const otpResponse = await dispatch(verifyOtp({ otp: newOtpDigits.join(''), email: signupData.email, role: signupData.role })).unwrap();
-    
+
                 if (otpResponse.status === 'success') {
-                    toast(<div className='flex center g5'> < VerifiedIcon/>{otpResponse.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'rgb(0, 189, 0)'}, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+                    toast(<div className='flex center g5'> < VerifiedIcon />{otpResponse.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'rgb(0, 189, 0)' }, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite' } });
                     navigate('/login');
                 } else {
-                    toast(<div className='flex center g5'> < NewReleasesIcon/> {'OTP verification failed: ' + otpResponse.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+                    toast(<div className='flex center g5'> < NewReleasesIcon /> {'OTP verification failed: ' + otpResponse.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
                 }
             } catch (error) {
-                toast(<div className='flex center g5'> < NewReleasesIcon/> {'OTP verification failed: ' + error.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+                toast(<div className='flex center g5'> < NewReleasesIcon /> {'OTP verification failed: ' + error.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
             }
         }
     };
@@ -81,7 +81,7 @@ const Otp = () => {
             setTimerRunning(false);
         }
     }, [timeLeft]);
-    
+
     const handleResendClick = async () => {
         try {
 
@@ -93,25 +93,25 @@ const Otp = () => {
             formData.append('password', signupData.password);
             formData.append('confirmPassword', signupData.confirmPassword);
             formData.append('country', signupData.country);
-            if (signupData.image){
+            if (signupData.image) {
                 formData.append('image', signupData.image);
             }
 
-            const deleteResponse =  await dispatch(deleteUser({ email: signupData.email, password: signupData.password, role: signupData.role })).unwrap();
+            const deleteResponse = await dispatch(deleteUser({ email: signupData.email, password: signupData.password, role: signupData.role })).unwrap();
             if (deleteResponse.status === 'success') {
                 const response = await dispatch(signupUser(formData)).unwrap();
                 if (response.status === "success") {
-                    toast(<div className='flex center g5'> < VerifiedIcon/>{response.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'rgb(0, 189, 0)'}, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+                    toast(<div className='flex center g5'> < VerifiedIcon />{response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'rgb(0, 189, 0)' }, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite' } });
                     setTimeLeft(60);
                     setTimerRunning(true);
                 } else {
-                    toast(<div className='flex center g5'> < NewReleasesIcon/> {'Signup failed: ' + response.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+                    toast(<div className='flex center g5'> < NewReleasesIcon /> {'Signup failed: ' + response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
                 }
             } else {
-                toast(<div className='flex center g5'> < NewReleasesIcon/> {deleteResponse.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+                toast(<div className='flex center g5'> < NewReleasesIcon /> {deleteResponse.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
             }
         } catch (error) {
-            toast(<div className='flex center g5'> < NewReleasesIcon/> {error.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+            toast(<div className='flex center g5'> < NewReleasesIcon /> {error.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
         }
     };
 
@@ -119,11 +119,12 @@ const Otp = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Verify OTP</title>
+                <title>Verify OTP | MarketPlace</title>
+                <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
             </Helmet>
 
             <div className='authpage flex center'>
-                <div className="box flexcol center" style={{gap: '30px'}}>
+                <div className="box flexcol center" style={{ gap: '30px' }}>
                     <div className="heading flex center blue">Enter the OTP sent to your email</div>
 
                     <div className="flex center g20">

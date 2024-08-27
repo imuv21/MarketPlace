@@ -48,7 +48,8 @@ const Success = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Payment Success</title>
+        <title>Payment Success | MarketPlace</title>
+        <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
       </Helmet>
       <div className="flexcol center page" style={{ height: '100vh' }}>
         <div className="heading">Order placed successfully!</div>

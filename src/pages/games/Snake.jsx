@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from "react-router-dom";
 
 
@@ -109,25 +110,32 @@ const Snake = () => {
     }, [snake, direction, gameOver, isPaused]);
 
     return (
-        <div className="page flexcol g10 center wh">
+        <Fragment>
+            <Helmet>
+                <title>Snake Game | MarketPlace</title>
+                <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
+            </Helmet>
 
-            <div className="text">Score: {score}</div>
-            <button onClick={gameDashboard}>Back</button>
+            <div className="page flexcol g10 center wh">
+                <div className="text">Score: {score}</div>
+                <button onClick={gameDashboard}>Back</button>
 
-            <div className="game-board">
-                {gameOver && <div className="game-over">What a loooser</div>}
-                {Array.from({ length: 20 }, (_, rowIndex) =>
-                    <div key={rowIndex} className="row">
-                        {Array.from({ length: 20 }, (_, colIndex) =>
-                            <div key={colIndex}
-                                className={`cell ${snake.some(segment => segment.x === colIndex && segment.y === rowIndex) ? "snake" : ""} ${food.x === colIndex && food.y === rowIndex ? "food" : ""}`}
-                            />
-                        )}
-                    </div>
-                )}
+                <div className="game-board">
+                    {gameOver && <div className="game-over">What a loooser</div>}
+                    {Array.from({ length: 20 }, (_, rowIndex) =>
+                        <div key={rowIndex} className="row">
+                            {Array.from({ length: 20 }, (_, colIndex) =>
+                                <div key={colIndex}
+                                    className={`cell ${snake.some(segment => segment.x === colIndex && segment.y === rowIndex) ? "snake" : ""} ${food.x === colIndex && food.y === rowIndex ? "food" : ""}`}
+                                />
+                            )}
+                        </div>
+                    )}
+                </div>
+                <button onClick={game}>{gameOver ? "Play Again" : isPaused ? "Resume" : "Pause"}</button>
             </div>
-            <button onClick={game}>{gameOver ? "Play Again" : isPaused ? "Resume" : "Pause"}</button>
-        </div>
+        </Fragment>
+
     );
 };
 

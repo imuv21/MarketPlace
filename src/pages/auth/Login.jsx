@@ -69,7 +69,8 @@ const Login = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Login</title>
+        <title>Login | MarketPlace</title>
+        <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
       </Helmet>
       <div className='authpage flex center'>
         <form className="box flexcol center" onSubmit={handleLogin}>

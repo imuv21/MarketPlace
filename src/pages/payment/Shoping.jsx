@@ -44,7 +44,7 @@ const Shoping = () => {
     const razorpayHandler = async (amount, currency) => {
 
         const { data: { key } } = await axios.get(`${BASE_URL}/payment/getkey`);
-        const { data: { order } } = await axios.post(`${BASE_URL}/payment/checkout`, { amount, currency }, 
+        const { data: { order } } = await axios.post(`${BASE_URL}/payment/checkout`, { amount, currency },
             {
                 headers: { Authorization: `Bearer ${token}` },
             }
@@ -88,7 +88,8 @@ const Shoping = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Shop Page</title>
+                <title>Shop Page | MarketPlace</title>
+                <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
             </Helmet>
             <div className='page'>
                 <Link to='/order' className="textBig">See Orders</Link>

@@ -55,7 +55,8 @@ const FriendReq = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Friend Requests</title>
+                <title>Friend Requests | MarketPlace</title>
+                <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
             </Helmet>
             <div className='page flexcol wh'>
 

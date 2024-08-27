@@ -110,7 +110,8 @@ const FilterPage = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>MCU - Marvel Cinematic Universe</title>
+        <title>MCU - Marvel Cinematic Universe | MarketPlace</title>
+        <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
       </Helmet>
 
       <div className="page flexcol wh">

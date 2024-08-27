@@ -59,7 +59,8 @@ const Notification = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Notifications</title>
+                <title>Notifications | MarketPlace</title>
+                <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
             </Helmet>
             <div className='page flexcol g15 wh'>
                 {loadingNotifications && <div className='text'>Loading...</div>}

@@ -45,7 +45,8 @@ const FriendList = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Friend List</title>
+                <title>Friend List | MarketPlace</title>
+                <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
             </Helmet>
             <div className='page flexcol wh'>
 

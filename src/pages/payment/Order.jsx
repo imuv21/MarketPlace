@@ -16,7 +16,8 @@ const Order = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Order Page</title>
+                <title>Order Page | MarketPlace</title>
+                <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
             </Helmet>
             <div className='page flexcol g20 wh'>
                 {loading && <p>Loading...</p>}

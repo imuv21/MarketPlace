@@ -55,7 +55,8 @@ const TextToSpeech = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Text To Speech Page</title>
+                <title>Text To Speech | MarketPlace</title>
+                <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
             </Helmet>
             <div className='page flexcol g5 center'>
                 <h1>Text to Speech</h1>

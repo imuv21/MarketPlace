@@ -161,7 +161,8 @@ const Profile = () => {
   return (
     <Fragment>
       <Helmet>
-        <title>Profile</title>
+        <title>Profile | MarketPlace</title>
+        <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
       </Helmet>
       <div className="page flex center-start">
         <div className="profile flexcol start">

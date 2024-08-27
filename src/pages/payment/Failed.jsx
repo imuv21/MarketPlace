@@ -13,7 +13,8 @@ const Failed = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Payment Failed</title>
+                <title>Payment Failed | MarketPlace</title>
+                <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
             </Helmet>
             <div className="flexcol center page" style={{ height: '100vh' }}>
                 <div className="heading">Something went wrong!</div>
