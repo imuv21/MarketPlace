@@ -55,6 +55,7 @@ const Chat = () => {
             <Helmet>
                 <title>Chat | MarketPlace</title>
                 <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
+                <link rel="canonical" href="https://imuv21.netlify.app/chat/:receiverId" />
             </Helmet>
             <div className='page flexcol center'>
                 <div className="chat-component">

@@ -50,6 +50,7 @@ const Success = () => {
       <Helmet>
         <title>Payment Success | MarketPlace</title>
         <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
+        <link rel="canonical" href="https://imuv21.netlify.app/payment-success" />
       </Helmet>
       <div className="flexcol center page" style={{ height: '100vh' }}>
         <h1 className="heading">Order placed successfully!</h1>

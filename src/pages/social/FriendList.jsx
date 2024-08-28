@@ -47,13 +47,13 @@ const FriendList = () => {
             <Helmet>
                 <title>Friend List | MarketPlace</title>
                 <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
+                <link rel="canonical" href="https://imuv21.netlify.app/friend-list" />
             </Helmet>
             <div className='page flexcol wh'>
 
                 <Link to="/friend-requests" className="flex center g5 hover" style={{ width: 'fit-content' }}>
                     <Diversity3Icon /> <h1 className="textBig">See Friend Requests</h1>
                 </Link>
-
 
                 <div className="perfect-grid">
                     {loadingFriends && <p className="text">Loading...</p>}

@@ -15,6 +15,7 @@ const Failed = () => {
             <Helmet>
                 <title>Payment Failed | MarketPlace</title>
                 <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
+                <link rel="canonical" href="https://imuv21.netlify.app/payment-failed" />
             </Helmet>
             <div className="flexcol center page" style={{ height: '100vh' }}>
                 <h1 className="heading">Something went wrong!</h1>

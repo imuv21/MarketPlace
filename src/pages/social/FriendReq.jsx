@@ -57,6 +57,7 @@ const FriendReq = () => {
             <Helmet>
                 <title>Friend Requests | MarketPlace</title>
                 <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
+                <link rel="canonical" href="https://imuv21.netlify.app/friend-requests" />
             </Helmet>
             <div className='page flexcol wh'>
 

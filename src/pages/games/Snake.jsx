@@ -114,6 +114,7 @@ const Snake = () => {
             <Helmet>
                 <title>Snake Game | MarketPlace</title>
                 <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
+                <link rel="canonical" href="https://imuv21.netlify.app/snake" />
             </Helmet>
 
             <div className="page flexcol g10 center wh">

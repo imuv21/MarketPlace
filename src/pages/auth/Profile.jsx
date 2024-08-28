@@ -163,6 +163,7 @@ const Profile = () => {
       <Helmet>
         <title>Profile | MarketPlace</title>
         <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
+        <link rel="canonical" href="https://imuv21.netlify.app/profile" />
       </Helmet>
       <div className="page flex center-start">
         <div className="profile flexcol start">

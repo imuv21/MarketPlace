@@ -61,6 +61,7 @@ const Notification = () => {
             <Helmet>
                 <title>Notifications | MarketPlace</title>
                 <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
+                <link rel="canonical" href="https://imuv21.netlify.app/notifications" />
             </Helmet>
             <div className='page flexcol g15 wh'>
                 {loadingNotifications && <p className='text'>Loading...</p>}

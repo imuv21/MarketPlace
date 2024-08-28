@@ -90,6 +90,7 @@ const Shoping = () => {
             <Helmet>
                 <title>Shop Page | MarketPlace</title>
                 <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
+                <link rel="canonical" href="https://imuv21.netlify.app/shoping" />
             </Helmet>
             <div className='page'>
                 <Link to='/order' className="textBig">See Orders</Link>
