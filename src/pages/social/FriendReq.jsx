@@ -61,24 +61,23 @@ const FriendReq = () => {
             <div className='page flexcol wh'>
 
                 <Link to='/friend-list' className="flex center g5 hover" style={{ width: 'fit-content' }}>
-                    <Diversity3Icon /> <div className="textBig">See Friend List</div>
+                    <Diversity3Icon /> <h1 className="textBig">See Friend List</h1>
                 </Link>
 
-
                 <div className="perfect-grid">
-                    {loadingFriendReqs && <div className="text">Loading...</div>}
-                    {errorFriendReqs && <div className="text">Error: {errorFriendReqs.message}</div>}
+                    {loadingFriendReqs && <p className="text">Loading...</p>}
+                    {errorFriendReqs && <p className="text">Error: {errorFriendReqs.message}</p>}
                     {!loadingFriendReqs && !errorFriendReqs && friendReqs && friendReqs.length === 0 && (
-                        <div className="text"> No one wants to be your friend.</div>
+                        <p className="text"> No one wants to be your friend.</p>
                     )}
                     {!loadingFriendReqs && !errorFriendReqs && friendReqs && friendReqs.length > 0 && friendReqs.map((item) => (
                         <div className="grid-item" key={uuidv4()}>
                             <img src={item.image} alt={item.firstName} />
                             <div className="socialDetail">
                                 <div className="flexcol start-center wh" style={{ gap: '4px' }}>
-                                    <div className="textBig blue flex center-start g5">{item.firstName} {item.lastName} {item.isVerified === 1 ? <VerifiedIcon style={{ color: 'var(--footer)' }} /> : <NewReleasesIcon style={{ color: 'orange' }} />}</div>
-                                    <div className="textBig blue flex center-start g5"> <PersonIcon /> {item.role}</div>
-                                    <div className="textBig blue flex center-start g5"> <PublicIcon /> {item.country}</div>
+                                    <p className="textBig blue flex center-start g5">{item.firstName} {item.lastName} {item.isVerified === 1 ? <VerifiedIcon style={{ color: 'var(--footer)' }} /> : <NewReleasesIcon style={{ color: 'orange' }} />}</p>
+                                    <p className="textBig blue flex center-start g5"> <PersonIcon /> {item.role}</p>
+                                    <p className="textBig blue flex center-start g5"> <PublicIcon /> {item.country}</p>
                                 </div>
                                 <button className='response-btn response-btnTwo' onClick={() => acceptFriendHandler(item._id)}>Accept</button>
                                 <button className='response-btn response-btnOne' onClick={() => rejectFriendHandler(item._id)}>Reject</button>

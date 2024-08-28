@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <Fragment>
       <div className='component footer flex center wh'>
-        <div className="heading">Marketplace © 2024</div>
+        <h1 className="heading">Marketplace © 2024</h1>
       </div>
     </Fragment>
   )

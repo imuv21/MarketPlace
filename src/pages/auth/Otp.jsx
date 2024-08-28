@@ -125,7 +125,7 @@ const Otp = () => {
 
             <div className='authpage flex center'>
                 <div className="box flexcol center" style={{ gap: '30px' }}>
-                    <div className="heading flex center blue">Enter the OTP sent to your email</div>
+                    <h1 className="heading flex center blue">Enter the OTP sent to your email</h1>
 
                     <div className="flex center g20">
                         {otpDigits.map((digit, index) => (
@@ -144,7 +144,7 @@ const Otp = () => {
 
                         <Link to="/signup" className='blue hover'>Back</Link>
 
-                        {otpErrors && <div className="error flex center">{otpErrors}</div>}
+                        {otpErrors && <p className="error flex center">{otpErrors}</p>}
                     </div>
 
                 </div>

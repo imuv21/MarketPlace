@@ -12,7 +12,7 @@ const ProductCard = ({ title, amount, disPrice, currency, img, razorpayHandler }
             <img src={img} alt={title} />
 
             <div className="card-detail">
-                <div className="textBig">{title}</div>
+                <p className="textBig">{title}</p>
                 <div className="flex center g5">
                     <div className={`${disPrice ? 'line-through textSmol' : 'text'}`}>{amount} {currency}</div>
                     {disPrice && <div className="flex start g5"><div className="text">{disPrice} {currency}</div><div className="discount"> Discount {getDiscountPercent(amount, disPrice)}%</div></div>}

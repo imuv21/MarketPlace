@@ -166,7 +166,7 @@ const Profile = () => {
       </Helmet>
       <div className="page flex center-start">
         <div className="profile flexcol start">
-          <div className="heading black">Profile</div>
+          <h1 className="heading black">Profile</h1>
           <div className="pagebox10 flexcol start-center">
 
             <div className={`popup-avatar ${isClickedAvatar ? 'clicked' : ''}`}>
@@ -182,26 +182,26 @@ const Profile = () => {
             </div>
 
             <div className="pagebox20 flex center-space">
-              <div className="textBig blue">Name :</div>
-              <div className="textBig blue">{user.firstName} {user.lastName}</div>
+              <p className="textBig blue">Name :</p>
+              <p className="textBig blue">{user.firstName} {user.lastName}</p>
             </div>
             <div className="pagebox20 flex center-space">
-              <div className="textBig blue">Email :</div>
-              <div className="textBig blue verify flex center-start g5">{user.email}
+              <p className="textBig blue">Email :</p>
+              <p className="textBig blue verify flex center-start g5">{user.email}
                 {user.isVerified === 1 ? <VerifiedIcon /> : <NewReleasesIcon style={{ color: 'orange' }} />}
-              </div>
+              </p>
             </div>
             <div className="pagebox20 flex center-space">
-              <div className="textBig blue">Role :</div>
-              <div className="textBig blue">{user.role}</div>
+              <p className="textBig blue">Role :</p>
+              <p className="textBig blue">{user.role}</p>
             </div>
             <div className="pagebox20 flex center-space">
-              <div className="textBig blue">Password :</div>
+              <p className="textBig blue">Password :</p>
               <div className="textBig blue" style={{ cursor: 'pointer'}} onClick={seePassword}> { showPassword ? user.password : '***********' } </div>
             </div>
             <div className="pagebox20 flex center-space">
-              <div className="textBig blue">Country :</div>
-              <div className="textBig blue">{user.country}</div>
+              <p className="textBig blue">Country :</p>
+              <p className="textBig blue">{user.country}</p>
             </div>
           </div>
 
@@ -214,7 +214,7 @@ const Profile = () => {
               {isClickedFooter && (
                 <div className="popup">
                   <form className="popup-wrapper" onSubmit={handleSubmit}>
-                    <div className="heading blue">Update Profile</div>
+                    <h2 className="heading blue">Update Profile</h2>
 
                     <div className="flexcol center">
                       <div className="relative">

@@ -139,7 +139,7 @@ const Signup = () => {
       </Helmet>
       <div className='authpage flex center'>
         <form className="box flexcol center" onSubmit={handleSignup}>
-          <div className="heading blue">Create your account</div>
+          <h1 className="heading blue">Create your account</h1>
 
           <div className="flexcol center">
             <div className="relative">
@@ -156,16 +156,16 @@ const Signup = () => {
             <option value="buyer">Buyer</option>
             <option value="seller">Seller</option>
           </select>
-          {roleError && <div className="error">{roleError.msg}</div>}
+          {roleError && <p className="error">{roleError.msg}</p>}
 
           <input type="text" name='firstName' autoComplete='name' placeholder='Enter your first name...' value={formValues.firstName} onChange={handleChange} />
-          {firstNameError && <div className="error">{firstNameError.msg}</div>}
+          {firstNameError && <p className="error">{firstNameError.msg}</p>}
 
           <input type="text" name='lastName' autoComplete='name' placeholder='Enter your last name...' value={formValues.lastName} onChange={handleChange} />
-          {lastNameError && <div className="error">{lastNameError.msg}</div>}
+          {lastNameError && <p className="error">{lastNameError.msg}</p>}
 
           <input type="email" name='email' autoComplete='email' placeholder='Enter your email...' value={formValues.email} onChange={handleChange} />
-          {emailError && <div className="error">{emailError.msg}</div>}
+          {emailError && <p className="error">{emailError.msg}</p>}
 
           <div className="wh relative">
             <input type={passwordVisible ? "text" : "password"} style={{ textTransform: 'none' }} className='wh' name='password' autoComplete="new-password" placeholder='Enter your password...' value={formValues.password} onChange={handleChange} />
@@ -173,7 +173,7 @@ const Signup = () => {
               {passwordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
             </span>
           </div>
-          {passwordError && <div className="error">{passwordError.msg}</div>}
+          {passwordError && <p className="error">{passwordError.msg}</p>}
 
           <div className="wh relative">
             <input type={conPasswordVisible ? "text" : "password"} style={{ textTransform: 'none' }} className='wh' name="confirmPassword" autoComplete="new-password" placeholder='Enter your password again...' value={formValues.confirmPassword} onChange={handleChange} />
@@ -181,7 +181,7 @@ const Signup = () => {
               {conPasswordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
             </span>
           </div>
-          {confirmPasswordError && <div className="error">{confirmPasswordError.msg}</div>}
+          {confirmPasswordError && <p className="error">{confirmPasswordError.msg}</p>}
 
           <select name='country' value={formValues.country} onChange={handleChange}>
             <option value="">Choose your country</option>
@@ -189,12 +189,12 @@ const Signup = () => {
               <option key={uuidv4()} value={country}>{country}</option>
             ))}
           </select>
-          {countryError && <div className="error">{countryError.msg}</div>}
+          {countryError && <p className="error">{countryError.msg}</p>}
 
           <button type='submit' disabled={isSubmitting}>{isSubmitting ? 'Signing up...' : 'Signup'}</button>
-          {errors?.length > 0 && <div className="error flex center">Please correct the above errors.</div>}
-          {generalError && <div className="error flex center">{generalError}</div>}
-          <div className="text blue">Already have an account? <Link className='text blue hover' to='/login'>Click here</Link></div>
+          {errors?.length > 0 && <p className="error flex center">Please correct the above errors.</p>}
+          {generalError && <p className="error flex center">{generalError}</p>}
+          <p className="text blue">Already have an account? <Link className='text blue hover' to='/login'>Click here</Link></p>
         </form>
       </div>
     </Fragment>

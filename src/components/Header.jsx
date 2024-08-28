@@ -177,10 +177,10 @@ const Header = () => {
             {isNotification && (
               <div ref={popupIsNotificationRef} className="notification-popup">
 
-                {loadingNotifications && <div className='text'>Loading...</div>}
-                {errorNotifications && <div className='text'>{errorNotifications.message}</div>}
+                {loadingNotifications && <p className='text'>Loading...</p>}
+                {errorNotifications && <p className='text'>{errorNotifications.message}</p>}
                 {!loadingNotifications && !errorNotifications && notifications && notifications.length === 0 && (
-                  <div className="text">There are no notifications.</div>
+                  <p className="text">There are no notifications.</p>
                 )}
 
                 {!loadingNotifications && !errorNotifications && notifications && notifications.length > 0 && (
@@ -193,7 +193,7 @@ const Header = () => {
                   ))
                 )}
 
-                <div className="textSmol hover" onClick={openNotification}>See all</div>
+                <p className="textSmol hover" onClick={openNotification}>See all</p>
               </div>
             )}
           </div>

@@ -51,25 +51,25 @@ const FriendList = () => {
             <div className='page flexcol wh'>
 
                 <Link to="/friend-requests" className="flex center g5 hover" style={{ width: 'fit-content' }}>
-                    <Diversity3Icon /> <div className="textBig">See Friend Requests</div>
+                    <Diversity3Icon /> <h1 className="textBig">See Friend Requests</h1>
                 </Link>
 
 
                 <div className="perfect-grid">
-                    {loadingFriends && <div className="text">Loading...</div>}
-                    {errorFriends && <div className="text">Error: {errorFriends.message}</div>}
+                    {loadingFriends && <p className="text">Loading...</p>}
+                    {errorFriends && <p className="text">Error: {errorFriends.message}</p>}
                     {!loadingFriends && !errorFriends && friends && friends.length === 0 && (
-                        <div className="text">You have no friends here too.</div>
+                        <p className="text">You have no friends here too.</p>
                     )}
                     {!loadingFriends && !errorFriends && friends && friends.length > 0 && friends.map((item) => (
                         <div className="grid-item" key={uuidv4()}>
                             <img src={item.image} alt={item.firstName} />
                             <div className="socialDetail">
                                 <div className="flexcol start-center wh" style={{ gap: '4px' }}>
-                                    <div className="textBig blue flex center-start g5">{item.firstName} {item.lastName} {item.isVerified === 1 ? <VerifiedIcon style={{ color: 'var(--footer)' }} /> : <NewReleasesIcon style={{ color: 'orange' }} />}</div>
-                                    <div className="textBig blue flex center-start g5"> <AlternateEmailIcon /> {item.email}</div>
-                                    <div className="textBig blue flex center-start g5"> <PersonIcon /> {item.role}</div>
-                                    <div className="textBig blue flex center-start g5"> <PublicIcon /> {item.country}</div>
+                                    <p className="textBig blue flex center-start g5">{item.firstName} {item.lastName} {item.isVerified === 1 ? <VerifiedIcon style={{ color: 'var(--footer)' }} /> : <NewReleasesIcon style={{ color: 'orange' }} />}</p>
+                                    <p className="textBig blue flex center-start g5"> <AlternateEmailIcon /> {item.email}</p>
+                                    <p className="textBig blue flex center-start g5"> <PersonIcon /> {item.role}</p>
+                                    <p className="textBig blue flex center-start g5"> <PublicIcon /> {item.country}</p>
                                 </div>
                                 <button className='addFriend' onClick={() => chatHandler(item._id)}>Chat</button>
                                 <button className='addFriend' onClick={() => unfriendHandler(item._id)}>Unfriend</button>

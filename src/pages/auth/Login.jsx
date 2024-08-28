@@ -76,17 +76,17 @@ const Login = () => {
         <form className="box flexcol center" onSubmit={handleLogin}>
           {/* <button onClick={loginWithGoogle}>Sign in with google</button>
           <div className="heading wh blue" style={{textAlign: 'center'}}>OR</div> */}
-          <div className="heading blue">Login to your account</div>
+          <h1 className="heading blue">Login to your account</h1>
 
           <select name='role' value={formValues.role} onChange={handleChange}>
             <option value="">Login as a...</option>
             <option value="buyer">Buyer</option>
             <option value="seller">Seller</option>
           </select>
-          {roleError && <div className="error">{roleError.msg}</div>}
+          {roleError && <p className="error">{roleError.msg}</p>}
 
           <input type="email" name='email' autoComplete='email' placeholder='Enter your email...' value={formValues.email} onChange={handleChange} />
-          {emailError && <div className="error">{emailError.msg}</div>}
+          {emailError && <p className="error">{emailError.msg}</p>}
 
           <div className="wh relative">
             <input type={passwordVisible ? "text" : "password"} className='wh' name='password' autoComplete="new-password" placeholder='Enter your password...' value={formValues.password} onChange={handleChange} />
@@ -94,13 +94,13 @@ const Login = () => {
               {passwordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
             </span>
           </div>
-          {passwordError && <div className="error">{passwordError.msg}</div>}
+          {passwordError && <p className="error">{passwordError.msg}</p>}
 
           <button type='submit' disabled={isSubmitting}>{isSubmitting ? 'Logging in...' : 'Login'}</button>
-          {errors?.length > 0 && <div className="error flex center">Please correct the above errors.</div>}
-          {generalError && <div className="error flex center">{generalError}</div>}
-          <div className="text blue">Don't have an account? <Link className='text blue hover' to='/signup'>Click here</Link></div>
-          <div className="text blue">Now what? <Link className='text blue hover' to='/forgot-password'>Forgot your password again!!</Link></div>
+          {errors?.length > 0 && <p className="error flex center">Please correct the above errors.</p>}
+          {generalError && <p className="error flex center">{generalError}</p>}
+          <p className="text blue">Don't have an account? <Link className='text blue hover' to='/signup'>Click here</Link></p>
+          <p className="text blue">Now what? <Link className='text blue hover' to='/forgot-password'>Forgot your password again!!</Link></p>
         </form>
       </div>
     </Fragment>

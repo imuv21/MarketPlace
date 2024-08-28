@@ -17,7 +17,7 @@ const Failed = () => {
                 <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
             </Helmet>
             <div className="flexcol center page" style={{ height: '100vh' }}>
-                <div className="heading">Something went wrong!</div>
+                <h1 className="heading">Something went wrong!</h1>
                 <button onClick={backToHome}>Back to Homepage</button>
             </div>
         </Fragment>

@@ -25,13 +25,13 @@ const GameDashboard = () => {
       </Helmet>
       <div className='page flexcol wh'>
 
-        <div className="textBig">Game Dashboard</div>
+        <h1 className="textBig">Game Dashboard</h1>
         <div className="game-dashboard-grid">
           {games && games.length > 0 && games.map((game) => (
             <div className="game-dashboard-item" key={game.id}>
               <img src={game.img} alt={game.name} />
               <div className="game-detail">
-                <div className="textBig blue">{game.name}</div>
+                <p className="textBig blue">{game.name}</p>
                 <button className='addFriend'>Play</button>
               </div>
             </div>

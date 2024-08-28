@@ -62,7 +62,7 @@ const Chat = () => {
                     {receiver && <div className="reciever">
                         <img src={receiver.image ? receiver.image : defImg} alt={`${receiver.firstName}_${receiver.lastName}`} />
                         <div className="flex center g5">
-                            <div className="headingSmol">{`${receiver.firstName}  ${receiver.lastName}`}</div>
+                            <p className="headingSmol">{`${receiver.firstName}  ${receiver.lastName}`}</p>
                             {receiver.isVerified === 1 ? <VerifiedIcon style={{ color: 'var(--footer)' }} /> : <NewReleasesIcon style={{ color: 'orange' }} />}
                         </div>
                     </div>}
@@ -73,14 +73,14 @@ const Chat = () => {
                                 {message.sender._id === senderId ? (
                                     <div className="senderChat">
                                         <div className="senderMsg">
-                                            <div className="text">{message.content}</div>
+                                            <p className="text">{message.content}</p>
                                             <div className="timestamp">{formatTimestamp(message.timestamp)}</div>
                                         </div>
                                     </div>
                                 ) : message.sender._id === receiverId ? (
                                     <div className="recieverChat">
                                         <div className="recieverMsg">
-                                            <div className="text">{message.content}</div>
+                                            <p className="text">{message.content}</p>
                                             <div className="timestamp">{formatTimestamp(message.timestamp)}</div>
                                         </div>
                                     </div>

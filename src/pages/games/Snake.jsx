@@ -121,7 +121,7 @@ const Snake = () => {
                 <button onClick={gameDashboard}>Back</button>
 
                 <div className="game-board">
-                    {gameOver && <div className="game-over">What a loooser</div>}
+                    {gameOver && <p className="game-over">What a loooser</p>}
                     {Array.from({ length: 20 }, (_, rowIndex) =>
                         <div key={rowIndex} className="row">
                             {Array.from({ length: 20 }, (_, colIndex) =>

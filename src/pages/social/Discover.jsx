@@ -65,19 +65,19 @@ const Discover = () => {
                 </Link>
 
                 <div className="perfect-grid">
-                    {loading && <div className="text">Loading...</div>}
-                    {error && <div className="text">Error: {error.message}</div>}
+                    {loading && <p className="text">Loading...</p>}
+                    {error && <p className="text">Error: {error.message}</p>}
                     {!loading && !error && users && users.length === 0 && (
-                        <div className="text">There are no users yet.</div>
+                        <p className="text">There are no users yet.</p>
                     )}
                     {!loading && !error && users && users.length > 0 && users.map((item) => (
                         <div className="grid-item" key={uuidv4()}>
                             <img src={item.image} alt={item.firstName} />
                             <div className="socialDetail">
                                 <div className="flexcol start-center wh" style={{ gap: '4px' }}>
-                                    <div className="textBig blue flex center-start g5">{item.firstName} {item.lastName} {item.isVerified === 1 ? <VerifiedIcon style={{ color: 'var(--footer)' }} /> : <NewReleasesIcon style={{ color: 'orange' }} />}</div>
-                                    <div className="textBig blue flex center-start g5"> <PersonIcon /> {item.role}</div>
-                                    <div className="textBig blue flex center-start g5"> <PublicIcon /> {item.country}</div>
+                                    <p className="textBig blue flex center-start g5">{item.firstName} {item.lastName} {item.isVerified === 1 ? <VerifiedIcon style={{ color: 'var(--footer)' }} /> : <NewReleasesIcon style={{ color: 'orange' }} />}</p>
+                                    <p className="textBig blue flex center-start g5"> <PersonIcon /> {item.role}</p>
+                                    <p className="textBig blue flex center-start g5"> <PublicIcon /> {item.country}</p>
                                 </div>
                                 {item.friendReq.includes(user._id) ? (<button className='addFriend' onClick={() => cancelFriendHandler(item._id)}>Cancel Request</button>) : <button className='addFriend' onClick={() => addFriendHandler(item._id)}>Add Friend</button>}
                             </div>

@@ -52,21 +52,21 @@ const Success = () => {
         <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
       </Helmet>
       <div className="flexcol center page" style={{ height: '100vh' }}>
-        <div className="heading">Order placed successfully!</div>
+        <h1 className="heading">Order placed successfully!</h1>
         {details ? (
           <div className='flexcol center wh'>
-            <div className="text">Reference no: {paymentId}</div>
-            <div className="text">Order id: {details.order_id}</div>
-            <div className="text">Order amount: {details.amount / 100}</div>
-            <div className="text">Fee: {details.fee / 100}</div>
-            <div className="text">Tax: {details.tax / 100}</div>
-            <div className="text">Order currency: {details.currency}</div>
-            <div className="text">Payment method: {details.method}</div>
-            <div className="text">Order description: {details.description}</div>
-            <div className="text">Address: {details.notes.address}</div>
+            <p className="text">Reference no: {paymentId}</p>
+            <p className="text">Order id: {details.order_id}</p>
+            <p className="text">Order amount: {details.amount / 100}</p>
+            <p className="text">Fee: {details.fee / 100}</p>
+            <p className="text">Tax: {details.tax / 100}</p>
+            <p className="text">Order currency: {details.currency}</p>
+            <p className="text">Payment method: {details.method}</p>
+            <p className="text">Order description: {details.description}</p>
+            <p className="text">Address: {details.notes.address}</p>
           </div>
         ) : (
-          <div className="text">No payment details found.</div>
+          <p className="text">No payment details found.</p>
         )}
         <button onClick={backToHome}>Back to Homepage</button>
       </div>

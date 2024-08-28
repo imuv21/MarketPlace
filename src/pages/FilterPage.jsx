@@ -123,7 +123,7 @@ const FilterPage = () => {
           {isClickedFooter && (
             <div className="popup">
               <form className="popup-wrapper" onSubmit={handleSubmit}>
-                <div className="heading blue">Add new movie</div>
+                <h1 className="heading blue">Add new movie</h1>
 
                 <input type="text" name='title' placeholder='Enter the title' value={formValues.title} onChange={handleChange} required />
                 <input type="number" name='rating' placeholder='Give your rating' value={formValues.rating} onChange={handleChange} required />
@@ -141,7 +141,7 @@ const FilterPage = () => {
         </div>
 
         <div className="perfect-grid">
-          {movies && movies.length === 0 && <div className="text">There are no movies yet.</div>}
+          {movies && movies.length === 0 && <p className="text">There are no movies yet.</p>}
           {movies && movies.length > 0 && movies.map((item, index) => (
 
             <div className="grid-item" key={uuidv4()}>
@@ -158,8 +158,8 @@ const FilterPage = () => {
                 <div className="flex center-start g5">
                   <StarIcon /> <div className="textBig">{item.rating}</div>
                 </div>
-                <div className="textBig">{index + 1}. {item.title}</div>
-                {item.comment && <div className="textSmol">{item.comment}.</div>}
+                <p className="textBig">{index + 1}. {item.title}</p>
+                {item.comment && <p className="textSmol">{item.comment}.</p>}
               </div>
             </div>
 

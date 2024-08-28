@@ -10,7 +10,7 @@ const Home = () => {
         <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
       </Helmet>
       <div className='page flexcol g5 center'>
-        <div className="text">Home page</div>
+        <h1 className="text">Home page</h1>
       </div>
     </Fragment>
   );

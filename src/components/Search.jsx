@@ -31,10 +31,10 @@ const Search = () => {
       
      { searchQuery && <button className='clear-btn' onClick={clear}>Clear</button>}
 
-      {loadingSearchedUsers && <div className='text'>Loading...</div>}
-      {errorSearchedUsers && <div className='text'>{errorSearchedUsers.message}</div>}
+      {loadingSearchedUsers && <p className='text'>Loading...</p>}
+      {errorSearchedUsers && <p className='text'>{errorSearchedUsers.message}</p>}
       {!loadingSearchedUsers && !errorSearchedUsers && searchedUsers.length === 0 && (
-        <div className="text">There are no users yet.</div>
+        <p className="text">There are no users yet.</p>
       )}
 
       <div className='flexcol start-center wh g5'>

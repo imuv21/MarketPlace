@@ -94,7 +94,7 @@ const Shoping = () => {
             <div className='page'>
                 <Link to='/order' className="textBig">See Orders</Link>
                 <div className="card-perfect-grid">
-                    {products && products.length === 0 && <div className="text">There are no products yet.</div>}
+                    {products && products.length === 0 && <p className="text">There are no products yet.</p>}
                     {products && products.length > 0 && products.map((item) => (
                         <ProductCard key={item.id} title={item.title} amount={item.price} disPrice={item.disPrice} currency={item.currency} img={item.img} razorpayHandler={razorpayHandler} />
                     ))}
