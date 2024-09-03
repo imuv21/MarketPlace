@@ -73,9 +73,8 @@ const Header = () => {
   const addMovies = () => {
     navigate('/add-new-movie');
   }
-
-  const playGames = () => {
-    navigate('/play-games');
+  const featureDashboard = () => {
+    navigate('/feature-dashboard');
   }
 
   //burger
@@ -165,7 +164,7 @@ const Header = () => {
           <SearchIcon onClick={openSearch} />
           <AccountCircle onClick={profile} />
           <PostAddIcon onClick={addMovies} />
-          <SmartToyIcon onClick={playGames} />
+          <SmartToyIcon onClick={featureDashboard} />
           {user.role === 'buyer' && <StorefrontIcon onClick={shoping} />}
           {user.role === 'buyer' && <ShoppingCart onClick={cart} />}
           <PeopleAltIcon onClick={discover} />

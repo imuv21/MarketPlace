@@ -44,7 +44,7 @@ const Shoping = () => {
     const razorpayHandler = async (amount, currency) => {
 
         const { data: { key } } = await axios.get(`${BASE_URL}/payment/getkey`);
-        const { data: { order } } = await axios.post(`${BASE_URL}/payment/checkout`, { amount, currency },
+        const { data: { order } } = await axios.post(`${BASE_URL}/payment/razorpay`, { amount, currency },
             {
                 headers: { Authorization: `Bearer ${token}` },
             }
@@ -84,6 +84,12 @@ const Shoping = () => {
         const razor = new window.Razorpay(options);
         razor.open();
     }
+
+
+    // const paypalHandler = async (amount, currency) => {
+
+    // }
+
 
     return (
         <Fragment>
