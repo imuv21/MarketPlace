@@ -90,6 +90,8 @@ const Otp = () => {
             formData.append('firstName', signupData.firstName);
             formData.append('lastName', signupData.lastName);
             formData.append('email', signupData.email);
+            formData.append('phone', signupData.phone);
+            formData.append('countryCode', signupData.countryCode);
             formData.append('password', signupData.password);
             formData.append('confirmPassword', signupData.confirmPassword);
             formData.append('country', signupData.country);

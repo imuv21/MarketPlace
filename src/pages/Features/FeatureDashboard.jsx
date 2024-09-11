@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
 
 const FeatureDashboard = () => {
 
   const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
+  const userRole = user?.role;
 
   const features = [
     {
@@ -22,7 +24,17 @@ const FeatureDashboard = () => {
       name: "Snake",
       img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1724418689/MarketPlace/pngwing.com_fbzye6.png",
       id: 23
-    }
+    },
+    {
+      name: "Add Movies",
+      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725696042/MarketPlace/7627_w44xsq.png",
+      id: 24
+    },
+    {
+      name: "Add Products",
+      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725696145/MarketPlace/325-3256246_fa-fa-product-icon-transparent-cartoons-fa-fa_pttnh7.png",
+      id: 25
+    },
   ];
 
   const open = (id) => {
@@ -35,6 +47,12 @@ const FeatureDashboard = () => {
         break;
       case 23:
         navigate('/snake');
+        break;
+      case 24:
+        navigate('/add-new-movie');
+        break;
+      case 25:
+        navigate('/add-products');
         break;
       default:
         navigate('/feature-dashboard');
@@ -55,7 +73,16 @@ const FeatureDashboard = () => {
 
         <h1 className="textBig">Feature Dashboard</h1>
         <div className="game-dashboard-grid">
-          {features && features.length > 0 && features.map((feature) => (
+          {userRole === 'seller' && features && features.length > 0 && features.map((feature) => (
+            <div className="game-dashboard-item" key={feature.id}>
+              <img src={feature.img} alt={feature.name} />
+              <div className="game-detail">
+                <p className="textBig blue">{feature.name}</p>
+                <button className='addFriend' onClick={() => open(feature.id)}>Open</button>
+              </div>
+            </div>
+          ))}
+          {userRole === 'buyer' && features && features.length > 0 && features.filter((feature) => feature.id === 25).map((feature) => (
             <div className="game-dashboard-item" key={feature.id}>
               <img src={feature.img} alt={feature.name} />
               <div className="game-detail">

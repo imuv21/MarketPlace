@@ -6,6 +6,7 @@ import { signupUser, clearErrors, setSignupData } from '../../slices/authSlice';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { toast } from 'react-hot-toast';
+import { allCountryCodes } from '../../assets/ccSchema';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VerifiedIcon from '@mui/icons-material/Verified';
@@ -16,7 +17,6 @@ const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { errors, generalError } = useSelector((state) => state.auth);
-
 
   // profile photo upload functionality
   const defImg = 'https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg';
@@ -42,6 +42,8 @@ const Signup = () => {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
+    countryCode: '',
     password: '',
     confirmPassword: '',
     country: '',
@@ -74,9 +76,37 @@ const Signup = () => {
     fetchCountries();
   }, []);
 
+  //country codes
+  const [ccode, setCcode] = useState([]);
+
+  useEffect(() => {
+    const formattedCountryCodes = allCountryCodes.map(country => ({
+      name: country[0],
+      iso2: country[1],
+      dialCode: country[2]
+    }));
+
+    setCcode(formattedCountryCodes);
+  }, []);
+
   //handlers
   const handleChange = (e) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === 'countryCode') {
+      const selectedCountry = ccode.find(country => country.dialCode === value);
+
+      if (selectedCountry) {
+        setFormValues({
+          ...formValues,
+          countryCode: selectedCountry,
+        });
+      }
+   
+    } else {
+      setFormValues({ ...formValues, [name]: value });
+    }
+
     dispatch(clearErrors());
   };
 
@@ -84,6 +114,8 @@ const Signup = () => {
   const firstNameError = Array.isArray(errors) ? errors.find(error => error.path === 'firstName') : null;
   const lastNameError = Array.isArray(errors) ? errors.find(error => error.path === 'lastName') : null;
   const emailError = Array.isArray(errors) ? errors.find(error => error.path === 'email') : null;
+  const phoneError = Array.isArray(errors) ? errors.find(error => error.path === 'phone') : null;
+  // const ccError = Array.isArray(errors) ? errors.find(error => error.path === 'countryCode') : null;
   const passwordError = Array.isArray(errors) ? errors.find(error => error.path === 'password') : null;
   const confirmPasswordError = Array.isArray(errors) ? errors.find(error => error.path === 'confirmPassword') : null;
   const countryError = Array.isArray(errors) ? errors.find(error => error.path === 'country') : null;
@@ -92,8 +124,8 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
-    if (roleError || firstNameError || lastNameError || emailError || passwordError || confirmPasswordError || countryError || generalError) {
-      toast(<div className='flex center g5'> < NewReleasesIcon/>Please fix the errors before submitting the form.</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+    if (roleError || firstNameError || lastNameError || emailError || phoneError || passwordError || confirmPasswordError || countryError || generalError) {
+      toast(<div className='flex center g5'> < NewReleasesIcon />Please fix the errors before submitting the form.</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
       return;
     }
     setIsSubmitting(true);
@@ -104,21 +136,23 @@ const Signup = () => {
       formData.append('firstName', formValues.firstName);
       formData.append('lastName', formValues.lastName);
       formData.append('email', formValues.email);
+      formData.append('phone', formValues.phone);
+      formData.append('countryCode', formValues.countryCode.dialCode);
       formData.append('password', formValues.password);
       formData.append('confirmPassword', formValues.confirmPassword);
       formData.append('country', formValues.country);
       if (selectedImage) {
         formData.append('image', selectedImage);
       }
-
+   
       const response = await dispatch(signupUser(formData)).unwrap();
       if (response.status === "success") {
         await dispatch(setSignupData({
-          email: formValues.email, role: formValues.role, firstName: formValues.firstName, lastName: formValues.lastName,
+          email: formValues.email, role: formValues.role, firstName: formValues.firstName, lastName: formValues.lastName, phone: formValues.phone, countryCode: formValues.countryCode.dialCode,
           country: formValues.country, password: formValues.password, confirmPassword: formValues.confirmPassword, image: selectedImage || null
         }));
-    
-        toast(<div className='flex center g5'> < VerifiedIcon/>{response.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'rgb(0, 189, 0)'}, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+
+        toast(<div className='flex center g5'> < VerifiedIcon />{response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'rgb(0, 189, 0)' }, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite' } });
         navigate('/verify-otp');
       }
     } catch (error) {
@@ -127,9 +161,6 @@ const Signup = () => {
       setIsSubmitting(false);
     }
   }
-
-
-
 
   return (
     <Fragment>
@@ -167,6 +198,19 @@ const Signup = () => {
 
           <input type="email" name='email' autoComplete='email' placeholder='Enter your email...' value={formValues.email} onChange={handleChange} />
           {emailError && <p className="error">{emailError.msg}</p>}
+
+          <input type="text" name='phone' autoComplete='tel' placeholder='Enter your number...' value={formValues.phone} onChange={handleChange} />
+          {phoneError && <p className="error">{phoneError.msg}</p>}
+
+          <select name="countryCode" value={formValues.countryCode.dialCode} onChange={handleChange} required>
+            <option value="">Choose your country code</option>
+            {ccode.map(country => (
+              <option key={country.iso2} value={country.dialCode}>
+                {`${country.name} (+${country.dialCode})`}
+              </option>
+            ))}
+          </select>
+          {/* {ccError && <p className="error">{ccError.msg}</p>} */}
 
           <div className="wh relative">
             <input type={passwordVisible ? "text" : "password"} style={{ textTransform: 'none' }} className='wh' name='password' autoComplete="new-password" placeholder='Enter your password...' value={formValues.password} onChange={handleChange} />

@@ -193,6 +193,10 @@ const Profile = () => {
               </p>
             </div>
             <div className="pagebox20 flex center-space">
+              <p className="textBig blue">Phone Number :</p>
+              <p className="textBig blue">+{user.countryCode} {user.phone}</p>
+            </div>
+            <div className="pagebox20 flex center-space">
               <p className="textBig blue">Role :</p>
               <p className="textBig blue">{user.role}</p>
             </div>

@@ -11,7 +11,6 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import PostAddIcon from '@mui/icons-material/PostAdd';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
 
 const Search = lazy(() => import('./Search'));
@@ -69,9 +68,6 @@ const Header = () => {
   }
   const home = () => {
     navigate('/');
-  }
-  const addMovies = () => {
-    navigate('/add-new-movie');
   }
   const featureDashboard = () => {
     navigate('/feature-dashboard');
@@ -158,15 +154,14 @@ const Header = () => {
           <Menu />
         </div>
         <img className='logo' src={images.logo} alt="logo" onClick={home} />
-        
+
         <div className="nav-mobile flex center">
           <div className="textBig hover">{user.firstName} {user.lastName}</div>
           <SearchIcon onClick={openSearch} />
           <AccountCircle onClick={profile} />
-          <PostAddIcon onClick={addMovies} />
           <SmartToyIcon onClick={featureDashboard} />
-          {user.role === 'buyer' && <StorefrontIcon onClick={shoping} />}
-          {user.role === 'buyer' && <ShoppingCart onClick={cart} />}
+          <StorefrontIcon onClick={shoping} />
+          <ShoppingCart onClick={cart} />
           <PeopleAltIcon onClick={discover} />
 
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMovie, getMovies, deleteMovie } from '../slices/movieSlice';
+import { addMovie, getMovies, deleteMovie } from '../../slices/movieSlice';
 import { toast } from 'react-hot-toast';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
@@ -11,7 +11,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import ClearIcon from '@mui/icons-material/Clear';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
-const FilterPage = () => {
+const AddMovies = () => {
 
   const dispatch = useDispatch();
   const { movies, loading, error } = useSelector((state) => state.movies);
@@ -102,8 +102,6 @@ const FilterPage = () => {
   }, [isClickedFooter]);
 
 
-  // drag and drop
-
 
 
 
@@ -166,9 +164,11 @@ const FilterPage = () => {
 
           ))}
         </div>
+        
       </div>
+
     </Fragment>
   )
 };
 
-export default FilterPage;
+export default AddMovies;
