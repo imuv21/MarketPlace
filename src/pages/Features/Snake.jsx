@@ -92,7 +92,7 @@ const Snake = () => {
     };
 
     const gameDashboard = () => {
-        navigate('/play-games');
+        navigate('/feature-dashboard');
     }
 
     useEffect(() => {

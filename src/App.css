@@ -8,6 +8,7 @@
   --top: #CAF4FF;
   --bottom: #A0DEFF;
   --footer: #5AB2FF;
+  --fontgray: #5c5c5c;
 
   --bg: radial-gradient(circle at 20% 0%, rgba(49, 210, 255, 0.30) 1%, transparent 40%), radial-gradient(circle at 80% 0%, rgba(49, 210, 255, 0.30) 1%, transparent 40%);
   --trans: all 0.4s ease-in-out;
@@ -15,6 +16,7 @@
   --br2: 8px;
   --shadow: rgb(146, 146, 146) 5px 5px 10px 0px;
   --shadowsmall: rgb(146, 146, 146) 2px 2px 3px 0px;
+  --border: 1px solid #cecece;
 }
 
 * {
@@ -98,7 +100,7 @@ button {
   cursor: pointer;
   transition: var(--trans);
   display: flex;
-  padding: 10px 30px;
+  padding: 5px 20px;
   gap: 5px;
   align-items: center;
   justify-content: center;
@@ -130,6 +132,10 @@ button:focus {
 
 .wh {
   width: 100%;
+}
+
+.vh {
+  height: 100vh;
 }
 
 .g5 {
@@ -587,6 +593,10 @@ button:focus {
 /* and this is a perfect popup */
 .popup-btn {
   position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .popup-avatar {
@@ -1040,6 +1050,79 @@ button:focus {
 }
 
 
+/* lists and movies */
+.popupButton .MuiSvgIcon-root{
+  width: 25px;
+  height: 25px;
+}
+.viewIcons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.viewIcons .MuiSvgIcon-root{
+  width: 25px;
+  height: 25px;
+  color: var(--footer);
+  cursor: pointer;
+}
+.lists{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.list{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: var(--border);
+}
+.list-detail{
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+.list-detail .MuiSvgIcon-root {
+  width: 15px;
+  height: 15px;
+  color: var(--fontgray);
+}
+.list-action{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+}
+.list-action .MuiSvgIcon-root{
+  width: 20px;
+  height: 20px;
+  color: gray;
+  cursor: pointer;
+  transition: var(--trans);
+}
+.list-action .MuiSvgIcon-root:hover{
+  color: var(--fontgray);
+}
+.poster{
+  width: 80px;
+  height: auto;
+}
+
+
+
 
 
 
@@ -1095,4 +1178,8 @@ button:focus {
 .success {
   filter: drop-shadow(5px 5px 3px rgb(167, 255, 167));
   color: rgb(0, 189, 0);
+}
+
+.fontGray{
+  color: var(--fontgray);
 }

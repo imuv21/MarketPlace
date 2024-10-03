@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { v4 as uuidv4 } from 'uuid';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMovie, getMovies, deleteMovie } from '../../slices/movieSlice';
 import { toast } from 'react-hot-toast';
@@ -10,15 +10,21 @@ import StarIcon from '@mui/icons-material/Star';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ClearIcon from '@mui/icons-material/Clear';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import ViewModuleIcon from '@mui/icons-material/ViewModule';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 const AddMovies = () => {
 
   const dispatch = useDispatch();
   const { movies, loading, error } = useSelector((state) => state.movies);
+  const { listId } = useParams();
+  const [viewMode, setViewMode] = useState('list'); // 'grid' or 'list'
+  const imgPlaceHoler = 'https://res.cloudinary.com/dfsohhjfo/image/upload/v1727950830/MarketPlace/istockphoto-1642381175-612x612_kkotha.jpg';
 
-  useEffect(() => {
-    dispatch(getMovies());
-  }, [dispatch]);
+  const toggleViewMode = (mode) => {
+    setViewMode(mode);
+  };
 
   //clicks
   const [isClickedFooter, setIsClickedFooter] = useState(false);
@@ -40,6 +46,9 @@ const AddMovies = () => {
   });
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+    if (name === 'rating' && value > 10) {
+      return;
+    }
     if (name === 'poster' && files.length > 0) {
       setFormValues({ ...formValues, poster: files[0] });
     } else {
@@ -57,19 +66,19 @@ const AddMovies = () => {
       movieData.append('comment', formValues.comment);
       movieData.append('poster', formValues.poster);
 
-      const response = await dispatch(addMovie(movieData)).unwrap();
+      const response = await dispatch(addMovie({ movieData, listId })).unwrap();
       if (response.status === "success") {
-        dispatch(getMovies());
-        toast(<div className='flex center g5'> < VerifiedIcon/>{response.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'rgb(0, 189, 0)'}, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+        dispatch(getMovies(listId));
+        toast(<div className='flex center g5'> < VerifiedIcon /> {response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'rgb(0, 189, 0)' }, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite' } });
         setIsClickedFooter(false);
         setIsSubmitted(false);
       } else {
-        toast(<div className='flex center g5'> < NewReleasesIcon/> {response.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+        toast(<div className='flex center g5'> < NewReleasesIcon /> {response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
         setIsClickedFooter(false);
         setIsSubmitted(false);
       }
     } catch (error) {
-      toast(<div className='flex center g5'> < NewReleasesIcon/> {error.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+      toast(<div className='flex center g5'> < NewReleasesIcon /> {error.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
     } finally {
       setFormValues({ title: '', rating: '', comment: '', poster: null });
     }
@@ -77,17 +86,21 @@ const AddMovies = () => {
 
   const handleDelete = async (movieId) => {
     try {
-      const response = await dispatch(deleteMovie(movieId)).unwrap();
+      const response = await dispatch(deleteMovie({ movieId, listId })).unwrap();
       if (response.status === 'success') {
-        dispatch(getMovies());
-        toast(<div className='flex center g5'> < VerifiedIcon/>{response.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+        dispatch(getMovies(listId));
+        toast(<div className='flex center g5'> < VerifiedIcon />{response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
       } else {
-        toast(<div className='flex center g5'> < NewReleasesIcon/> {response.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+        toast(<div className='flex center g5'> < NewReleasesIcon /> {response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
       }
     } catch (error) {
-      toast(<div className='flex center g5'> < NewReleasesIcon/> {error.message}</div>, { duration: 3000, position: 'top-center', style: {color: 'red'}, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite'} });
+      toast(<div className='flex center g5'> < NewReleasesIcon /> {error.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
     }
   };
+
+  useEffect(() => {
+    dispatch(getMovies(listId));
+  }, [dispatch, listId]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,13 +123,12 @@ const AddMovies = () => {
       <Helmet>
         <title>MCU - Marvel Cinematic Universe | MarketPlace</title>
         <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
-        <link rel="canonical" href="https://imuv21.netlify.app/add-new-movie" />
+        <link rel="canonical" href="https://imuv21.netlify.app/movies" />
       </Helmet>
 
       <div className="page flexcol wh">
-
         <div className={`popup-btn ${isClickedFooter ? 'clicked' : ''}`}>
-          <button onClick={handleClickFooter}>
+          <button onClick={handleClickFooter} className='popupButton'>
             <AddBoxIcon /> <div className="headingSmol">Add new movie</div>
           </button>
           {isClickedFooter && (
@@ -125,7 +137,7 @@ const AddMovies = () => {
                 <h1 className="heading blue">Add new movie</h1>
 
                 <input type="text" name='title' placeholder='Enter the title' value={formValues.title} onChange={handleChange} required />
-                <input type="number" name='rating' placeholder='Give your rating' value={formValues.rating} onChange={handleChange} required />
+                <input type="number" name='rating' placeholder='Give your rating (0 to 10)' value={formValues.rating} onChange={handleChange} required max={10} />
                 <input type="text" name='comment' placeholder='Any comment on it' value={formValues.comment} onChange={handleChange} />
                 <input type="file" name='poster' onChange={handleChange} required />
 
@@ -137,36 +149,64 @@ const AddMovies = () => {
               </form>
             </div>
           )}
+          <div className="viewIcons">
+            <ViewModuleIcon onClick={() => toggleViewMode('grid')} /> <ViewListIcon onClick={() => toggleViewMode('list')} />
+          </div>
         </div>
 
-        <div className="perfect-grid">
-          {movies && movies.length === 0 && <p className="text">There are no movies yet.</p>}
-          {movies && movies.length > 0 && movies.map((item, index) => (
+        { viewMode === 'grid' ?
+          (<div className="perfect-grid">
+            {loading && <p className="text">Loading movies...</p>}
+            {error && <p className="text">Error loading movies. Please try again later.</p>}
+            {!error && !loading && movies && movies.length === 0 && <p className="text">There are no movies yet.</p>}
 
-            <div className="grid-item" key={uuidv4()}>
-              <img src={item.poster} alt={item.title} />
-              <div className="iconsOnImage flexcol center g5">
-                <div className="flex center">
+            {!error && !loading && movies && movies.length > 0 && movies.map((movie) => (
+              <div className="grid-item" key={movie._id}>
+                <img src={movie.poster || imgPlaceHoler} alt={movie.title} />
+                <div className="iconsOnImage flexcol center g5">
+                  <div className="flex center">
+                    <ModeEditIcon />
+                  </div>
+                  <div className="flex center">
+                    <ClearIcon onClick={() => handleDelete(movie._id)} />
+                  </div>
+                </div>
+                <div className="detail">
+                  <div className="flex center-start g5">
+                    <StarIcon /> <div className="textBig">{movie.rating}</div>
+                  </div>
+                  <p className="textBig">{movie.index}. {movie.title}</p>
+                  {movie.comment && <p className="textSmol">{movie.comment}.</p>}
+                </div>
+              </div>
+            ))}
+          </div>) 
+          :
+          (<div className="lists">
+            {loading && <p className="text">Loading movies...</p>}
+            {error && <p className="text">Error loading movies. Please try again later.</p>}
+            {!error && !loading && movies && movies.length === 0 && <p className="text">There are no movies yet.</p>}
+
+            {!error && !loading && movies && movies.length > 0 && movies.map((movie, index) => (
+              <div className="list" key={movie._id}>
+                <img src={movie.poster || imgPlaceHoler} className="poster" alt={movie.title} />
+                <article className="list-detail">
+                  <h1 className="textBig">{movie.index}. {movie.title}</h1>
+                  <div className="flex center-start g5">
+                    <StarIcon style={{color: 'yellow', filter: 'drop-shadow(1px 1px 1px black)'}} /> <div className="textBig fontGray">{movie.rating}</div>
+                  </div>
+                  {movie.comment && <p className="textSmol fontGray">{movie.comment}.</p>}
+                </article>
+
+                <div className="list-action">
                   <ModeEditIcon />
-                </div>
-                <div className="flex center">
-                  <ClearIcon onClick={() => handleDelete(item._id)} />
+                  <RemoveCircleIcon onClick={() => handleDelete(movie._id)} />
                 </div>
               </div>
-              <div className="detail">
-                <div className="flex center-start g5">
-                  <StarIcon /> <div className="textBig">{item.rating}</div>
-                </div>
-                <p className="textBig">{index + 1}. {item.title}</p>
-                {item.comment && <p className="textSmol">{item.comment}.</p>}
-              </div>
-            </div>
-
-          ))}
-        </div>
-        
+            ))}
+          </div>)
+        }
       </div>
-
     </Fragment>
   )
 };

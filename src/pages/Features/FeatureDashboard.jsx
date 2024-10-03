@@ -26,7 +26,7 @@ const FeatureDashboard = () => {
       id: 23
     },
     {
-      name: "Add Movies",
+      name: "Lists & Movies",
       img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725696042/MarketPlace/7627_w44xsq.png",
       id: 24
     },
@@ -49,7 +49,7 @@ const FeatureDashboard = () => {
         navigate('/snake');
         break;
       case 24:
-        navigate('/add-new-movie');
+        navigate('/lists');
         break;
       case 25:
         navigate('/add-products');
@@ -73,7 +73,7 @@ const FeatureDashboard = () => {
 
         <h1 className="textBig">Feature Dashboard</h1>
         <div className="game-dashboard-grid">
-          {userRole === 'seller' && features && features.length > 0 && features.map((feature) => (
+          {userRole === 'buyer' && features && features.length > 0 && features.filter((feature) => feature.id !== 25).map((feature) => (
             <div className="game-dashboard-item" key={feature.id}>
               <img src={feature.img} alt={feature.name} />
               <div className="game-detail">
@@ -82,7 +82,7 @@ const FeatureDashboard = () => {
               </div>
             </div>
           ))}
-          {userRole === 'buyer' && features && features.length > 0 && features.filter((feature) => feature.id === 25).map((feature) => (
+          {userRole === 'seller' && features && features.length > 0 && features.filter((feature) => feature.id === 25).map((feature) => (
             <div className="game-dashboard-item" key={feature.id}>
               <img src={feature.img} alt={feature.name} />
               <div className="game-detail">

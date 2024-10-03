@@ -13,7 +13,9 @@ const Layout = lazy(() => import('./components/Layout'));
 const Login = lazy(() => import('./pages/auth/Login'));
 const Signup = lazy(() => import('./pages/auth/Signup'));
 const Otp = lazy(() => import('./pages/auth/Otp'));
-const Socket = lazy(() => import('./pages/Features/Socket'));
+const Other = lazy(() => import('./pages/Features/Other'));
+const Portfolio = lazy(() => import('./pages/Features/Portfolio'));
+const Intro = lazy(() => import('./dsa/Intro'));
 
 //private
 const Home = lazy(() => import('./pages/Home'));
@@ -28,6 +30,7 @@ const Chat = lazy(() => import('./pages/social/Chat'));
 const Shoping = lazy(() => import('./pages/payment/Shoping'));
 const Order = lazy(() => import('./pages/payment/Order'));
 const FeatureDashboard = lazy(() => import('./pages/Features/FeatureDashboard'));
+const Lists = lazy(() => import('./pages/Features/Lists'));
 const Snake = lazy(() => import('./pages/Features/Snake'));
 const TextToSpeech = lazy(() => import('./pages/Features/TextToSpeech'));
 const LinkShortner = lazy(() => import('./pages/Features/LinkShortner'));
@@ -61,7 +64,7 @@ function App() {
             <Route path='/cart' element={<Layout><Cart /></Layout>} />
             <Route path='/shoping' element={<Layout><Shoping /></Layout>} />
             <Route path='/order' element={<Layout><Order /></Layout>} />
-            <Route path='/add-new-movie' element={<Layout><AddMovies /></Layout>} />
+            <Route path='/movies/:listId' element={<Layout><AddMovies /></Layout>} />
             <Route path='/profile' element={<Layout><Profile /></Layout>} />
             <Route path='/discover' element={<Layout><Discover /></Layout>} />
             <Route path='/friend-list' element={<Layout><FriendList /></Layout>} />
@@ -69,6 +72,7 @@ function App() {
             <Route path='/notifications' element={<Layout><Notification /></Layout>} />
             <Route path='/chat/:receiverId' element={<Layout><Chat /></Layout>} />
             <Route path='/feature-dashboard' element={<Layout><FeatureDashboard /></Layout>} />
+            <Route path='/lists' element={<Layout><Lists /></Layout>} />
             <Route path='/snake' element={<Snake />} />
             <Route path='/text-to-speech' element={<Layout><TextToSpeech /></Layout>} />
             <Route path='/url-shortner' element={<Layout><LinkShortner /></Layout>} />
@@ -82,7 +86,9 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/verify-otp' element={<Otp />} />
-            <Route path='/socket' element={<Socket />} />
+            <Route path='/other' element={<Other />} />
+            <Route path='/portfolio' element={<Portfolio />} />
+            <Route path='/dsa' element={<Intro />} />
           </Route>
 
           {/* not found */}

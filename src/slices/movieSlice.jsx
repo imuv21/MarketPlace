@@ -3,13 +3,72 @@ import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-export const addMovie = createAsyncThunk(
-    'movies/addMovie',
-    async (movieData, { getState, rejectWithValue }) => {
+export const addList = createAsyncThunk(
+    'movies/addList',
+    async (listData, { getState, rejectWithValue }) => {
         try {
             const { auth } = getState();
             const token = auth.token;
-            const response = await axios.post(`${BASE_URL}/user/add-movie`, movieData, {
+            const response = await axios.post(`${BASE_URL}/user/create-list`, listData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || { message: 'An error occurred' });
+        }
+    }
+);
+
+export const editList = createAsyncThunk(
+    'movies/editList',
+    async ({ listData, listId }, { getState, rejectWithValue }) => {
+        try {
+            const { auth } = getState();
+            const token = auth.token;
+            const response = await axios.put(`${BASE_URL}/user/edit-list/${listId}`, listData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || { message: 'An error occurred' });
+        }
+    }
+);
+
+export const getLists = createAsyncThunk(
+    'movies/getLists',
+    async (_, { getState, rejectWithValue }) => {
+        try {
+            const { auth } = getState();
+            const token = auth.token;
+            const response = await axios.get(`${BASE_URL}/user/get-lists`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || { message: 'An error occurred' });
+        }
+    }
+);
+
+export const addMovie = createAsyncThunk(
+    'movies/addMovie',
+    async ({ movieData, listId }, { getState, rejectWithValue }) => {
+        try {
+            const { auth } = getState();
+            const token = auth.token;
+            const response = await axios.post(`${BASE_URL}/user/lists/${listId}/add-movie`, movieData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`
@@ -25,11 +84,11 @@ export const addMovie = createAsyncThunk(
 
 export const getMovies = createAsyncThunk(
     'movies/getMovies',
-    async (_, { getState, rejectWithValue }) => {
+    async (listId, { getState, rejectWithValue }) => {
         try {
             const { auth } = getState();
             const token = auth.token;
-            const response = await axios.get(`${BASE_URL}/user/get-movie`, {
+            const response = await axios.get(`${BASE_URL}/user/get-movies/${listId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -44,7 +103,7 @@ export const getMovies = createAsyncThunk(
 
 export const deleteMovie = createAsyncThunk(
     'movies/deleteMovie',
-    async (movieId, { getState, rejectWithValue }) => {
+    async ({ movieId, listId }, { getState, rejectWithValue }) => {
         try {
             const { auth } = getState();
             const token = auth.token;
@@ -52,7 +111,7 @@ export const deleteMovie = createAsyncThunk(
                 headers: {
                     'Authorization': `Bearer ${token}`
                 },
-                data: { movieId }
+                data: { movieId, listId }
             });
 
             return response.data;
@@ -68,44 +127,50 @@ const movieSlice = createSlice({
         movies: [],
         loading: false,
         error: null,
-        getMovieStatus: false,
-        addMovieErrors: null,
-        addMovieStatus: false,
+
+        addMovieLoading: false,
+        addMovieError: null,
+
         deleteMovieStatus: false,
         deleteMovieError: null,
+
+        lists: [],
+        getListsLoading: false,
+        getListsError: null,
+
+        addListLoading: false,
+        addListError: null,
+
+        editListLoading: false,
+        editListError: null,
     },
     reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(addMovie.pending, (state) => {
-                state.loading = true;
-                state.addMovieErrors = null;
-                state.addMovieStatus = false;
+                state.addMovieLoading = true;
+                state.addMovieError = null;
             })
-            .addCase(addMovie.fulfilled, (state, action) => {
-                state.loading = false;
-                state.addMovieErrors = null;
-                state.addMovieStatus = true;
+            .addCase(addMovie.fulfilled, (state) => {
+                state.addMovieLoading = false;
+                state.addMovieError = null;
             })
             .addCase(addMovie.rejected, (state, action) => {
-                state.loading = false;
-                state.addMovieErrors = action.payload.message;
-                state.addMovieStatus = false;
+                state.addMovieLoading = false;
+                state.addMovieError = action.payload.message;
             })
             .addCase(getMovies.pending, (state) => {
                 state.loading = true;
                 state.error = null;
-                state.getMovieStatus = false;
             })
             .addCase(getMovies.fulfilled, (state, action) => {
                 state.loading = false;
-                state.movies = action.payload.data;
-                state.getMovieStatus = true;
+                state.error = null;
+                state.movies = action.payload.movies;
             })
             .addCase(getMovies.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload.message;
-                state.getMovieStatus = false;
             })
             .addCase(deleteMovie.pending, (state) => {
                 state.loading = true;
@@ -122,6 +187,42 @@ const movieSlice = createSlice({
                 state.loading = false;
                 state.deleteMovieError = action.payload.message;
                 state.deleteMovieStatus = false;
+            })
+            .addCase(getLists.pending, (state) => {
+                state.getListsLoading = true;
+                state.getListsError = null;
+            })
+            .addCase(getLists.fulfilled, (state, action) => {
+                state.getListsLoading = false;
+                state.lists = action.payload.lists;
+            })
+            .addCase(getLists.rejected, (state, action) => {
+                state.getListsLoading = false;
+                state.getListsError = action.payload.message;
+            })
+            .addCase(addList.pending, (state) => {
+                state.addListLoading = true;
+                state.addListError = null;
+            })
+            .addCase(addList.fulfilled, (state) => {
+                state.addListLoading = false;
+                state.addListError = null;
+            })
+            .addCase(addList.rejected, (state, action) => {
+                state.addListLoading = false;
+                state.addListError = action.payload.message;
+            })
+            .addCase(editList.pending, (state) => {
+                state.editListLoading = true;
+                state.editListError = null;
+            })
+            .addCase(editList.fulfilled, (state) => {
+                state.editListLoading = false;
+                state.editListError = null;
+            })
+            .addCase(editList.rejected, (state, action) => {
+                state.editListLoading = false;
+                state.editListError = action.payload.message;
             });
     },
 });
