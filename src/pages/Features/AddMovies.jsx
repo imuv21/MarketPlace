@@ -154,46 +154,47 @@ const AddMovies = () => {
           </div>
         </div>
 
-        { viewMode === 'grid' ?
-          (<div className="perfect-grid">
-            {loading && <p className="text">Loading movies...</p>}
-            {error && <p className="text">Error loading movies. Please try again later.</p>}
-            {!error && !loading && movies && movies.length === 0 && <p className="text">There are no movies yet.</p>}
-
-            {!error && !loading && movies && movies.length > 0 && movies.map((movie) => (
-              <div className="grid-item" key={movie._id}>
-                <img src={movie.poster || imgPlaceHoler} alt={movie.title} />
-                <div className="iconsOnImage flexcol center g5">
-                  <div className="flex center">
-                    <ModeEditIcon />
+        {viewMode === 'grid' ?
+          (<Fragment>
+            {loading && <p className="text wh centertext">Loading movies...</p>}
+            {error && <p className="text wh centertext">Error loading movies. Please try again later.</p>}
+            {!error && !loading && movies && movies.length === 0 && <p className="text wh centertext">There are no movies yet.</p>}
+            <div className="perfect-grid">
+              {!error && !loading && movies && movies.length > 0 && movies.map((movie) => (
+                <div className="grid-item" key={movie._id}>
+                  <img src={movie.poster || imgPlaceHoler} alt={movie.title} />
+                  <div className="iconsOnImage flexcol center g5">
+                    <div className="flex center">
+                      <ModeEditIcon />
+                    </div>
+                    <div className="flex center">
+                      <ClearIcon onClick={() => handleDelete(movie._id)} />
+                    </div>
                   </div>
-                  <div className="flex center">
-                    <ClearIcon onClick={() => handleDelete(movie._id)} />
+                  <div className="detail">
+                    <div className="flex center-start g5">
+                      <StarIcon /> <div className="textBig">{movie.rating}</div>
+                    </div>
+                    <p className="textBig">{movie.index}. {movie.title}</p>
+                    {movie.comment && <p className="textSmol">{movie.comment}.</p>}
                   </div>
                 </div>
-                <div className="detail">
-                  <div className="flex center-start g5">
-                    <StarIcon /> <div className="textBig">{movie.rating}</div>
-                  </div>
-                  <p className="textBig">{movie.index}. {movie.title}</p>
-                  {movie.comment && <p className="textSmol">{movie.comment}.</p>}
-                </div>
-              </div>
-            ))}
-          </div>) 
+              ))}
+            </div>
+          </Fragment>)
           :
           (<div className="lists">
             {loading && <p className="text">Loading movies...</p>}
             {error && <p className="text">Error loading movies. Please try again later.</p>}
             {!error && !loading && movies && movies.length === 0 && <p className="text">There are no movies yet.</p>}
 
-            {!error && !loading && movies && movies.length > 0 && movies.map((movie, index) => (
+            {!error && !loading && movies && movies.length > 0 && movies.map((movie) => (
               <div className="list" key={movie._id}>
                 <img src={movie.poster || imgPlaceHoler} className="poster" alt={movie.title} />
                 <article className="list-detail">
                   <h1 className="textBig">{movie.index}. {movie.title}</h1>
                   <div className="flex center-start g5">
-                    <StarIcon style={{color: 'yellow', filter: 'drop-shadow(1px 1px 1px black)'}} /> <div className="textBig fontGray">{movie.rating}</div>
+                    <StarIcon style={{ color: 'yellow', filter: 'drop-shadow(1px 1px 1px black)' }} /> <div className="textBig fontGray">{movie.rating}</div>
                   </div>
                   {movie.comment && <p className="textSmol fontGray">{movie.comment}.</p>}
                 </article>

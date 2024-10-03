@@ -62,6 +62,18 @@ export const getLists = createAsyncThunk(
     }
 );
 
+export const getPublicLists = createAsyncThunk(
+    'movies/getPublicLists',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${BASE_URL}/user/get-all-lists`);
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || { message: 'An error occurred' });
+        }
+    }
+);
+
 export const addMovie = createAsyncThunk(
     'movies/addMovie',
     async ({ movieData, listId }, { getState, rejectWithValue }) => {
@@ -94,6 +106,18 @@ export const getMovies = createAsyncThunk(
                 }
             });
 
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || { message: 'An error occurred' });
+        }
+    }
+);
+
+export const getPublicMovies = createAsyncThunk(
+    'movies/getPublicMovies',
+    async (listId, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${BASE_URL}/user/get-all-movies/${listId}`);
             return response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data || { message: 'An error occurred' });
@@ -143,6 +167,14 @@ const movieSlice = createSlice({
 
         editListLoading: false,
         editListError: null,
+
+        publicLists: [],
+        gplLoading: false,
+        gplError: null,
+
+        publicMovies: [],
+        gpmLoading: false,
+        gpmError: null,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -194,6 +226,7 @@ const movieSlice = createSlice({
             })
             .addCase(getLists.fulfilled, (state, action) => {
                 state.getListsLoading = false;
+                state.getListsError = null;
                 state.lists = action.payload.lists;
             })
             .addCase(getLists.rejected, (state, action) => {
@@ -223,7 +256,33 @@ const movieSlice = createSlice({
             .addCase(editList.rejected, (state, action) => {
                 state.editListLoading = false;
                 state.editListError = action.payload.message;
-            });
+            })
+            .addCase(getPublicLists.pending, (state) => {
+                state.gplLoading = true;
+                state.gplError = null;
+            })
+            .addCase(getPublicLists.fulfilled, (state, action) => {
+                state.gplLoading = false;
+                state.gplError = null;
+                state.publicLists = action.payload.lists;
+            })
+            .addCase(getPublicLists.rejected, (state, action) => {
+                state.gplLoading = false;
+                state.gplError = action.payload.message;
+            })
+            .addCase(getPublicMovies.pending, (state) => {
+                state.gpmLoading = true;
+                state.gpmError = null;
+            })
+            .addCase(getPublicMovies.fulfilled, (state, action) => {
+                state.gpmLoading = false;
+                state.gpmError = null;
+                state.publicMovies = action.payload.movies;
+            })
+            .addCase(getPublicMovies.rejected, (state, action) => {
+                state.gpmLoading = false;
+                state.gpmError = action.payload.message;
+            })
     },
 });
 

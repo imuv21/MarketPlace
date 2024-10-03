@@ -508,6 +508,7 @@ button:focus {
 
 /*this is a perfect grid */
 .perfect-grid {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
@@ -1025,7 +1026,6 @@ button:focus {
 .row {
   display: flex;
 }
-
 .cell {
   width: 20px;
   height: 20px;
@@ -1118,7 +1118,9 @@ button:focus {
 }
 .poster{
   width: 80px;
-  height: auto;
+  height: 120px;
+  object-fit: fill;
+  aspect-ratio: 4/3;
 }
 
 

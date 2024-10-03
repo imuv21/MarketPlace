@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 
-
 const Protector = lazy(() => import('./components/Protector'));
 const Layout = lazy(() => import('./components/Layout'));
 
@@ -13,9 +12,10 @@ const Layout = lazy(() => import('./components/Layout'));
 const Login = lazy(() => import('./pages/auth/Login'));
 const Signup = lazy(() => import('./pages/auth/Signup'));
 const Otp = lazy(() => import('./pages/auth/Otp'));
-const Other = lazy(() => import('./pages/Features/Other'));
 const Portfolio = lazy(() => import('./pages/Features/Portfolio'));
 const Intro = lazy(() => import('./dsa/Intro'));
+const PublicLists = lazy(() => import('./pages/publicList/PublicLists'));
+const PublicMovies = lazy(() => import('./pages/publicList/PublicMovies'));
 
 //private
 const Home = lazy(() => import('./pages/Home'));
@@ -80,15 +80,15 @@ function App() {
             <Route path='/payment-failed' element={<Failed />} />
           </Route>
 
-
           {/* public */}
           <Route element={<Protector user={!user} redirect='/' />}>
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/verify-otp' element={<Otp />} />
-            <Route path='/other' element={<Other />} />
+            <Route path='/login' element={<Layout><Login /></Layout>} />
+            <Route path='/signup' element={<Layout><Signup /></Layout>} />
+            <Route path='/verify-otp' element={<Layout><Otp /></Layout>} />
             <Route path='/portfolio' element={<Portfolio />} />
             <Route path='/dsa' element={<Intro />} />
+            <Route path='/public-lists' element={<Layout><PublicLists /></Layout>} />
+            <Route path='/public-movies/:listId' element={<Layout><PublicMovies /></Layout>} />
           </Route>
 
           {/* not found */}

@@ -12,6 +12,7 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
+import MovieIcon from '@mui/icons-material/Movie';
 
 const Search = lazy(() => import('./Search'));
 
@@ -47,6 +48,9 @@ const Header = () => {
     } finally {
       navigate('/login');
     }
+  }
+  const publicLists = () => {
+    navigate('/public-lists');
   }
   const shoping = () => {
     navigate('/shoping');
@@ -155,7 +159,7 @@ const Header = () => {
         </div>
         <img className='logo' src={images.logo} alt="logo" onClick={home} />
 
-        <div className="nav-mobile flex center">
+        {user && <div className="nav-mobile flex center">
           <div className="textBig hover">{user.firstName} {user.lastName}</div>
           <SearchIcon onClick={openSearch} />
           <AccountCircle onClick={profile} />
@@ -163,8 +167,6 @@ const Header = () => {
           <StorefrontIcon onClick={shoping} />
           <ShoppingCart onClick={cart} />
           <PeopleAltIcon onClick={discover} />
-
-
           <div ref={isNotificationRef} onClick={handleOpenNotification} className={`notification-btn ${isNotification ? 'clicked' : ''}`}>
             <NotificationsIcon />
             {notifications && notifications.length > 0 && (<div className="notification-number">{notifications.length}</div>)}
@@ -191,21 +193,25 @@ const Header = () => {
               </div>
             )}
           </div>
-
           <Logout onClick={logout} />
           {!token && <Login onClick={login} />}
-        </div>
+        </div>}
+
+        {!user && <div className="nav-mobile flex center">
+          <MovieIcon onClick={publicLists} />
+        </div>}
       </div>
 
       {isSearch && (<Suspense fallback={<div>Loading...</div>}><Search /></Suspense>)}
 
       <Drawer anchor="left" open={mobileMenuOpen} onClose={toggleMobileMenu}>
         <div className='drawer' onClick={toggleMobileMenu} onKeyDown={toggleMobileMenu}>
-          <Link to="/">Home</Link>
-          <Link to="/cart">Cart</Link>
+          {user && <Link to="/">Home</Link>}
+          {user && <Link to="/cart">Cart</Link>}
           <Link to="/login">Login</Link>
           <Link to="/signup">Signp</Link>
-          <Link to="/logout">Logout</Link>
+          <Link to="/public-lists">Public Lists</Link>
+          {user && <Link to="/logout">Logout</Link>}
         </div>
       </Drawer>
     </Fragment>
