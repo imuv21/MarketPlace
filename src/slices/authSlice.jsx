@@ -161,6 +161,8 @@ const initialState = {
     generalError: null,
     otpErrors: null,
     otpStatus: null,
+    delUserLoading: false,
+    delUserError: null,
 };
 
 const authSlice = createSlice({
@@ -209,13 +211,16 @@ const authSlice = createSlice({
                 state.otpStatus = 'failed';
             })
             .addCase(deleteUser.pending, (state) => {
-                state.loading = true;
+                state.delUserLoading = true;
+                state.delUserError = null;
             })
             .addCase(deleteUser.fulfilled, (state) => {
-                state.loading = false;
+                state.delUserLoading = false;
+                state.delUserError = null;
             })
-            .addCase(deleteUser.rejected, (state) => {
-                state.loading = false;
+            .addCase(deleteUser.rejected, (state, action) => {
+                state.delUserLoading = false;
+                state.delUserError = action.payload.message;
             })
             .addCase(loginUser.pending, (state) => {
                 state.loading = true;

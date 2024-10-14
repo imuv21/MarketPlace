@@ -74,6 +74,25 @@ export const getPublicLists = createAsyncThunk(
     }
 );
 
+export const deleteList = createAsyncThunk(
+    'movies/deleteList',
+    async (listId, { getState, rejectWithValue }) => {
+        try {
+            const { auth } = getState();
+            const token = auth.token;
+            const response = await axios.delete(`${BASE_URL}/user/delete-list/${listId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || { message: 'An error occurred' });
+        }
+    }
+);
+
 export const addMovie = createAsyncThunk(
     'movies/addMovie',
     async ({ movieData, listId }, { getState, rejectWithValue }) => {
@@ -81,6 +100,26 @@ export const addMovie = createAsyncThunk(
             const { auth } = getState();
             const token = auth.token;
             const response = await axios.post(`${BASE_URL}/user/lists/${listId}/add-movie`, movieData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || { message: 'An error occurred' });
+        }
+    }
+);
+
+export const editMovie = createAsyncThunk(
+    'movies/editMovie',
+    async ({ movieData, listId, movieId }, { getState, rejectWithValue }) => {
+        try {
+            const { auth } = getState();
+            const token = auth.token;
+            const response = await axios.put(`${BASE_URL}/user/edit-movie/${listId}/${movieId}`, movieData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${token}`
@@ -155,8 +194,14 @@ const movieSlice = createSlice({
         addMovieLoading: false,
         addMovieError: null,
 
-        deleteMovieStatus: false,
+        editMovieLoading: false,
+        editMovieError: null,
+
+        deleteMovieLoading: false,
         deleteMovieError: null,
+
+        deleteListLoading: false,
+        deleteListError: null,
 
         lists: [],
         getListsLoading: false,
@@ -204,21 +249,30 @@ const movieSlice = createSlice({
                 state.loading = false;
                 state.error = action.payload.message;
             })
+            .addCase(editMovie.pending, (state) => {
+                state.editMovieLoading = true;
+                state.editMovieError = null;
+            })
+            .addCase(editMovie.fulfilled, (state) => {
+                state.editMovieLoading = false;
+                state.editMovieError = null;
+            })
+            .addCase(editMovie.rejected, (state, action) => {
+                state.editMovieLoading = false;
+                state.editMovieError= action.payload.message;
+            })
             .addCase(deleteMovie.pending, (state) => {
-                state.loading = true;
+                state.deleteMovieLoading = true;
                 state.deleteMovieError = null;
-                state.deleteMovieStatus = false;
             })
             .addCase(deleteMovie.fulfilled, (state, action) => {
-                state.loading = false;
+                state.deleteMovieLoading = false;
                 state.deleteMovieError = null;
-                state.deleteMovieStatus = true;
                 state.movies = state.movies.filter(movie => movie._id !== action.meta.arg);
             })
             .addCase(deleteMovie.rejected, (state, action) => {
-                state.loading = false;
+                state.deleteMovieLoading = false;
                 state.deleteMovieError = action.payload.message;
-                state.deleteMovieStatus = false;
             })
             .addCase(getLists.pending, (state) => {
                 state.getListsLoading = true;
@@ -283,6 +337,19 @@ const movieSlice = createSlice({
                 state.gpmLoading = false;
                 state.gpmError = action.payload.message;
             })
+            .addCase(deleteList.pending, (state) => {
+                state.deleteListLoading = true;
+                state.deleteListError = null;
+            })
+            .addCase(deleteList.fulfilled, (state, action) => {
+                state.deleteListLoading = false;
+                state.deleteListError = null;
+                state.lists = state.lists.filter(list => list._id !== action.meta.arg);
+            })
+            .addCase(deleteList.rejected, (state, action) => {
+                state.deleteListLoading = false;
+                state.deleteListError = action.payload.message;
+            });
     },
 });
 

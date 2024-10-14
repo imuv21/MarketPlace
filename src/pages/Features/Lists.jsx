@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLists, addList, editList } from '../../slices/movieSlice';
+import { getLists, addList, editList, deleteList } from '../../slices/movieSlice';
 import { toast } from 'react-hot-toast';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
@@ -20,7 +20,7 @@ const List = () => {
     const { lists, getListsLoading, getListsError, editListLoading, editListError } = useSelector((state) => state.movies);
     const isLoading = getListsLoading || editListLoading;
     const isError = getListsError || editListError;
-    const imgPlaceHoler = 'https://res.cloudinary.com/dfsohhjfo/image/upload/v1727950830/MarketPlace/istockphoto-1642381175-612x612_kkotha.jpg';
+    const imgPlaceHoler = 'https://res.cloudinary.com/dfsohhjfo/image/upload/v1727950830/MarketPlace/Assets/istockphoto-1642381175-612x612_kkotha.jpg';
 
     const gotoMovies = (listId) => {
         navigate(`/movies/${listId}`);
@@ -35,11 +35,26 @@ const List = () => {
         event.preventDefault();
         setIsClickedFooter(true);
     };
-    const handleEditList = (id) => {
-        setListId(id);
+    const handleEditList = (listId) => {
+        setListId(listId);
         setEditMode(true);
         setIsClickedFooter(true);
     }
+
+    const handleDeleteList = async (listId) => {
+        try {
+            const response = await dispatch(deleteList(listId)).unwrap();
+            if (response.status === 'success') {
+                dispatch(getLists());
+                toast(<div className='flex center g5'> < VerifiedIcon />{response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+            } else {
+                toast(<div className='flex center g5'> < NewReleasesIcon /> {response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+            }
+        } catch (error) {
+            toast(<div className='flex center g5'> < NewReleasesIcon /> {error.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+        }
+    };
+
     const closepopup = (event) => {
         event.preventDefault();
         setIsClickedFooter(false);
@@ -164,7 +179,7 @@ const List = () => {
 
                 <div className="lists">
                     {isLoading && <p className="text">Loading lists...</p>}
-                    {isError && <p className="text">Error loading lists. Please try again later.</p>}
+                    {isError && <p className="text">There are no lists yet.</p>}
                     {!isLoading && !isError && lists && lists.length === 0 && (
                         <p className="text">There are no lists yet.</p>
                     )}
@@ -179,7 +194,7 @@ const List = () => {
                             </article>
                             <div className="list-action">
                                 <ModeEditIcon onClick={() => handleEditList(list._id)} />
-                                <RemoveCircleIcon />
+                                <RemoveCircleIcon onClick={() => handleDeleteList(list._id)} />
                             </div>
                         </div>
                     ))}

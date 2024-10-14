@@ -12,29 +12,34 @@ const FeatureDashboard = () => {
   const features = [
     {
       name: "Link Shortner",
-      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725081570/MarketPlace/1_j3xVt5zsYuAB19-QATkk_w_g7eqos.png",
+      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725081570/MarketPlace/Assets/1_j3xVt5zsYuAB19-QATkk_w_g7eqos.png",
       id: 21
     },
     {
       name: "Text To Speech",
-      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725081416/MarketPlace/img-1_wgzgc7.png",
+      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725081416/MarketPlace/Assets/img-1_wgzgc7.png",
       id: 22
     },
     {
       name: "Snake",
-      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1724418689/MarketPlace/pngwing.com_fbzye6.png",
+      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1724418689/MarketPlace/Assets/pngwing.com_fbzye6.png",
       id: 23
     },
     {
       name: "Lists & Movies",
-      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725696042/MarketPlace/7627_w44xsq.png",
+      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725696042/MarketPlace/Assets/7627_w44xsq.png",
       id: 24
     },
     {
       name: "Add Products",
-      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725696145/MarketPlace/325-3256246_fa-fa-product-icon-transparent-cartoons-fa-fa_pttnh7.png",
+      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1725696145/MarketPlace/Assets/325-3256246_fa-fa-product-icon-transparent-cartoons-fa-fa_pttnh7.png",
       id: 25
     },
+    {
+      name: "Discover Cinema",
+      img: "https://t4.ftcdn.net/jpg/01/33/44/33/360_F_133443361_CFWR0cAYXAItwh3njbYKXBfKazNQda3f.jpg",
+      id: 26
+    }
   ];
 
   const open = (id) => {
@@ -54,12 +59,13 @@ const FeatureDashboard = () => {
       case 25:
         navigate('/add-products');
         break;
+      case 26:
+        navigate('/public-lists');
+        break;
       default:
         navigate('/feature-dashboard');
     }
   };
-
-
 
 
   return (

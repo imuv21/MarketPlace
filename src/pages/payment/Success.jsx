@@ -52,7 +52,7 @@ const Success = () => {
         <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
         <link rel="canonical" href="https://imuv21.netlify.app/payment-success" />
       </Helmet>
-      <div className="flexcol center page" style={{ height: '100vh' }}>
+      <div className="flexcol center page">
         <h1 className="heading">Order placed successfully!</h1>
         {details ? (
           <div className='flexcol center wh'>

@@ -1,17 +1,19 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProfile } from '../../slices/authSlice';
+import { updateProfile, deleteUser } from '../../slices/authSlice';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
 
   // edit profile
@@ -121,12 +123,12 @@ const Profile = () => {
 
       const response = await dispatch(updateProfile(formData)).unwrap();
       if (response.status === "success") {
-        alert(response.message);
+        toast(<div className='flex center g5'> < VerifiedIcon /> {response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'rgb(0, 189, 0)' }, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite' } });
       } else {
-        alert(response.message);
+        toast(<div className='flex center g5'> < NewReleasesIcon /> {response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
       }
     } catch (error) {
-      alert('Profile update failed');
+      toast(<div className='flex center g5'> < NewReleasesIcon /> Something went wrong!</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
     } finally {
       setIsClickedFooter(false);
       setIsSubmitted(false);
@@ -134,8 +136,21 @@ const Profile = () => {
   };
 
   //toasts
-  const errtoastClick = () => {
-    toast(<div className='flex center g5'> < NewReleasesIcon /> Profile deleted successfully</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+  const deleteProfile = async () => {
+    try {
+     let email = user.email;
+     let password = user.password;
+     let role = user.role;
+     const response = await dispatch(deleteUser({ email, password, role })).unwrap();
+     if (response.status === "success"){
+      toast(<div className='flex center g5'> < VerifiedIcon /> {response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'rgb(0, 189, 0)' }, className: 'success', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+      navigate('/login');
+     } else {
+      toast(<div className='flex center g5'> < NewReleasesIcon /> {response.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+     }
+    } catch (error) {
+      toast(<div className='flex center g5'> < NewReleasesIcon /> Something went wrong!</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
+    }
   }
  
   useEffect(() => {
@@ -210,9 +225,8 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="pagebox20 flex center-start">
-            <button className='btn' onClick={errtoastClick}>Update Email</button>
-            <button className='btn'>Update Password</button>
+          <div className="pagebox20 flex center">
+            <button className='btn' style={{whiteSpace: 'nowrap'}} onClick={deleteProfile}>Delete Profile</button>
 
             <div className={`popup-btn ${isClickedFooter ? 'clicked' : ''}`}>
               <button className='btn' onClick={handleClickFooter}>Edit Profile</button>
@@ -225,7 +239,7 @@ const Profile = () => {
                       <div className="relative">
                         <img src={imageUrl ? imageUrl : defImg} alt="Profile" className="avatar" />
                         <div className="avatar-edit-icon" onClick={handleUploadClick}>
-                          <img src="https://res.cloudinary.com/dfsohhjfo/image/upload/v1721197484/MarketPlace/4850478_upload_uploading_save_arrow_up_icon_haje1x.png" alt="edit-icon" />
+                          <img src="https://res.cloudinary.com/dfsohhjfo/image/upload/v1721197484/MarketPlace/Assets/4850478_upload_uploading_save_arrow_up_icon_haje1x.png" alt="edit-icon" />
                         </div>
                       </div>
                       <input id="avatar" type="file" accept="image/*" onChange={handleImageChange} style={{ display: 'none' }} />

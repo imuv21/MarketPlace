@@ -1,12 +1,12 @@
 import React, { Fragment, Suspense, useState, useEffect, lazy, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, Login, Logout, Search as SearchIcon, ShoppingCart, AccountCircle } from '@mui/icons-material';
-import Drawer from '@mui/material/Drawer';
-import images from '../assets/images.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotifications } from '../slices/usersSlice';
 import { logoutUser } from '../slices/authSlice';
 import { toast } from 'react-hot-toast';
+import { Menu, Login, Logout, Search as SearchIcon, ShoppingCart, AccountCircle } from '@mui/icons-material';
+import Drawer from '@mui/material/Drawer';
+import images from '../assets/images.json';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -164,8 +164,8 @@ const Header = () => {
           <SearchIcon onClick={openSearch} />
           <AccountCircle onClick={profile} />
           <SmartToyIcon onClick={featureDashboard} />
-          <StorefrontIcon onClick={shoping} />
-          <ShoppingCart onClick={cart} />
+          <StorefrontIcon style={{display: 'none'}} onClick={shoping} />
+          <ShoppingCart style={{display: 'none'}} onClick={cart} />
           <PeopleAltIcon onClick={discover} />
           <div ref={isNotificationRef} onClick={handleOpenNotification} className={`notification-btn ${isNotification ? 'clicked' : ''}`}>
             <NotificationsIcon />

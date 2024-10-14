@@ -177,7 +177,7 @@ const Signup = () => {
             <div className="relative">
               <img src={imageUrl ? imageUrl : defImg} alt="Profile" className="avatar" />
               <div className="avatar-edit-icon" onClick={handleUploadClick}>
-                <img src="https://res.cloudinary.com/dfsohhjfo/image/upload/v1721197484/MarketPlace/4850478_upload_uploading_save_arrow_up_icon_haje1x.png" alt="edit-icon" />
+                <img src="https://res.cloudinary.com/dfsohhjfo/image/upload/v1721197484/MarketPlace/Assets/4850478_upload_uploading_save_arrow_up_icon_haje1x.png" alt="edit-icon" />
               </div>
             </div>
             <input id="avatar" type="file" accept="image/*" onChange={handleImageChange} style={{ display: 'none' }} />

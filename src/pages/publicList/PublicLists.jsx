@@ -12,7 +12,7 @@ const PublicLists = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { publicLists, gplLoading, gplError } = useSelector((state) => state.movies);
-    const imgPlaceHoler = 'https://res.cloudinary.com/dfsohhjfo/image/upload/v1727950830/MarketPlace/istockphoto-1642381175-612x612_kkotha.jpg';
+    const imgPlaceHoler = 'https://res.cloudinary.com/dfsohhjfo/image/upload/v1727950830/MarketPlace/Assets/istockphoto-1642381175-612x612_kkotha.jpg';
     
     const gotoMovies = (listId) => {
         navigate(`/public-movies/${listId}`);
@@ -30,10 +30,10 @@ const PublicLists = () => {
                 <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
                 <link rel="canonical" href="https://imuv21.netlify.app/public-lists" />
             </Helmet>
-            <div className='page flexcol wh' style={{height: '100vh'}}>
+            <div className='page flexcol wh'>
                 <div className="lists">
                     {gplLoading && <p className="text">Loading lists...</p>}
-                    {gplError && <p className="text">Error loading lists. Please try again later.</p>}
+                    {gplError && <p className="text">There are no lists yet.</p>}
                     {!gplLoading && !gplError && publicLists && publicLists.length === 0 && (
                         <p className="text">There are no lists yet.</p>
                     )}

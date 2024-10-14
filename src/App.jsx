@@ -87,9 +87,11 @@ function App() {
             <Route path='/verify-otp' element={<Layout><Otp /></Layout>} />
             <Route path='/portfolio' element={<Portfolio />} />
             <Route path='/dsa' element={<Intro />} />
-            <Route path='/public-lists' element={<Layout><PublicLists /></Layout>} />
-            <Route path='/public-movies/:listId' element={<Layout><PublicMovies /></Layout>} />
           </Route>
+
+          {/* public & private */}
+          <Route path='/public-lists' element={<Layout><PublicLists /></Layout>} />
+          <Route path='/public-movies/:listId' element={<Layout><PublicMovies /></Layout>} />
 
           {/* not found */}
           <Route path='*' element={<div className="page flex center heading">Are you kidding me? Kuchh bhi!</div>} />

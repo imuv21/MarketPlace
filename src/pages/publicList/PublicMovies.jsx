@@ -14,7 +14,7 @@ const PublicMovies = () => {
   const { publicMovies, gpmLoading, gpmError } = useSelector((state) => state.movies);
   const { listId } = useParams();
   const [viewMode, setViewMode] = useState('list'); // 'grid' or 'list'
-  const imgPlaceHoler = 'https://res.cloudinary.com/dfsohhjfo/image/upload/v1727950830/MarketPlace/istockphoto-1642381175-612x612_kkotha.jpg';
+  const imgPlaceHoler = 'https://res.cloudinary.com/dfsohhjfo/image/upload/v1727950830/MarketPlace/Assets/istockphoto-1642381175-612x612_kkotha.jpg';
 
   const toggleViewMode = (mode) => {
     setViewMode(mode);
@@ -33,7 +33,7 @@ const PublicMovies = () => {
         <link rel="canonical" href="https://imuv21.netlify.app/public-movies" />
       </Helmet>
 
-      <div className="page flexcol wh" style={{ height: '100vh' }}>
+      <div className="page flexcol wh">
         <div className='flex center-end'>
           <div className="viewIcons">
             <ViewModuleIcon onClick={() => toggleViewMode('grid')} /> <ViewListIcon onClick={() => toggleViewMode('list')} />
@@ -43,7 +43,7 @@ const PublicMovies = () => {
         {viewMode === 'grid' ?
           (<Fragment>
             {gpmLoading && <p className="text wh centertext">Loading movies...</p>}
-            {gpmError && <p className="text wh centertext">Error loading movies. Please try again later.</p>}
+            {gpmError && <p className="text wh centertext">There are no movies yet.</p>}
             {!gpmError && !gpmLoading && publicMovies && publicMovies.length === 0 && <p className="text wh centertext">There are no movies yet.</p>}
             <div className="perfect-grid">
               {!gpmError && !gpmLoading && publicMovies && publicMovies.length > 0 && publicMovies.map((movie) => (
@@ -63,7 +63,7 @@ const PublicMovies = () => {
           :
           (<div className="lists">
             {gpmLoading && <p className="text">Loading movies...</p>}
-            {gpmError && <p className="text">Error loading movies. Please try again later.</p>}
+            {gpmError && <p className="text">There are no movies yet.</p>}
             {!gpmError && !gpmLoading && publicMovies && publicMovies.length === 0 && <p className="text">There are no movies yet.</p>}
 
             {!gpmError && !gpmLoading && publicMovies && publicMovies.length > 0 && publicMovies.map((movie) => (
