@@ -40,6 +40,9 @@ const SendEmails = () => {
         } catch (error) {
             toast(<div className='flex center g5'> < NewReleasesIcon /> {error.message}</div>, { duration: 3000, position: 'top-center', style: { color: 'red' }, className: 'failed', ariaProps: { role: 'status', 'aria-live': 'polite' } });
         } finally {
+            setEmailArray('');
+            setSubject('');
+            setMsg('');
             setIsSubmitting(false);
         }
     }
@@ -57,7 +60,7 @@ const SendEmails = () => {
                     <form className="flexcol center g10 wh" onSubmit={handleSubmit}>
                         <input type="text" placeholder='Enter emails separated by commas...' value={emailArray} onChange={(e) => setEmailArray(e.target.value)} />
                         <input type="text" placeholder='Enter subject...' value={subject} onChange={(e) => setSubject(e.target.value)} />
-                        <textarea placeholder='Enter your message...' value={msg} onChange={(e) => setMsg(e.target.value)}></textarea>
+                        <textarea placeholder='Enter your message...' value={msg} rows={20} onChange={(e) => setMsg(e.target.value)}></textarea>
                         <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Submitting...' : 'Submit'}</button>
                     </form>
                 </div>
