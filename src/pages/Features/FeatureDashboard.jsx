@@ -37,10 +37,15 @@ const FeatureDashboard = () => {
     },
     {
       name: "Discover Cinema",
-      img: "https://t4.ftcdn.net/jpg/01/33/44/33/360_F_133443361_CFWR0cAYXAItwh3njbYKXBfKazNQda3f.jpg",
+      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1729337455/MarketPlace/Assets/360_F_133443361_CFWR0cAYXAItwh3njbYKXBfKazNQda3f_zthng5.jpg",
       id: 26
+    },
+    {
+      name: "Send Emails in Bulk",
+      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1729337450/MarketPlace/Assets/VRSN_CompanyBrandedEmail_BlogImage8_201712-670x446_oz7joo.png",
+      id: 27
     }
-  ];
+  ]; 
 
   const open = (id) => {
     switch (id) {
@@ -61,6 +66,9 @@ const FeatureDashboard = () => {
         break;
       case 26:
         navigate('/public-lists');
+        break;
+      case 27:
+        navigate('/send-bulk-emails');
         break;
       default:
         navigate('/feature-dashboard');

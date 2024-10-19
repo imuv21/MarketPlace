@@ -34,6 +34,7 @@ const Lists = lazy(() => import('./pages/Features/Lists'));
 const Snake = lazy(() => import('./pages/Features/Snake'));
 const TextToSpeech = lazy(() => import('./pages/Features/TextToSpeech'));
 const LinkShortner = lazy(() => import('./pages/Features/LinkShortner'));
+const SendEmails = lazy(() => import('./pages/Features/SendEmails'));
 const Success = lazy(() => import('./pages/payment/Success'));
 const Failed = lazy(() => import('./pages/payment/Failed'));
 
@@ -76,6 +77,7 @@ function App() {
             <Route path='/snake' element={<Snake />} />
             <Route path='/text-to-speech' element={<Layout><TextToSpeech /></Layout>} />
             <Route path='/url-shortner' element={<Layout><LinkShortner /></Layout>} />
+            <Route path='/send-bulk-emails' element={<Layout><SendEmails /></Layout>} />
             <Route path='/payment-success' element={<Success />} />
             <Route path='/payment-failed' element={<Failed />} />
           </Route>

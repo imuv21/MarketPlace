@@ -37,6 +37,23 @@ export const getAnalysis = createAsyncThunk(
     }
 );
 
+export const sendEmailsInBulk = createAsyncThunk(
+    'features/sendEmailsInBulk',
+    async ({emailArray, subject, msg}, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${BASE_URL}/service/sendbulkemails`, { emailArray, subject, msg }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            return response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data || { message: 'An error occurred' });
+        }
+    }
+);
+
 
 const featuresSlice = createSlice({
     name: 'features',
@@ -51,6 +68,10 @@ const featuresSlice = createSlice({
         analysisLoading: false,
         analysisError: null,
         analysisStatus: null,
+
+        emailLoading: false,
+        emailMessage: null,
+        emailStatus: null,
     },
     reducers: {
         clearShortUrl: (state) => {
@@ -92,7 +113,22 @@ const featuresSlice = createSlice({
                 state.analysisLoading = false;
                 state.analysisError = action.payload?.message || 'Failed to get analytics';
                 state.analysisStatus = action.payload?.status || 'failed';
-            })     
+            })
+            .addCase(sendEmailsInBulk.pending, (state) => {
+                state.emailLoading = true;
+                state.emailMessage = null;
+                state.emailStatus = null;
+            })
+            .addCase(sendEmailsInBulk.fulfilled, (state, action) => {
+                state.emailLoading = false;
+                state.emailMessage = action.payload?.message;
+                state.emailStatus = action.payload?.status || "success";
+            })
+            .addCase(sendEmailsInBulk.rejected, (state, action) => {
+                state.emailLoading = false;
+                state.emailMessage = action.payload?.message;
+                state.emailStatus = action.payload?.status || "failed";
+            })
     },
 });
 
