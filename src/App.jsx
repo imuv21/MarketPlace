@@ -37,6 +37,7 @@ const LinkShortner = lazy(() => import('./pages/Features/LinkShortner'));
 const SendEmails = lazy(() => import('./pages/Features/SendEmails'));
 const Success = lazy(() => import('./pages/payment/Success'));
 const Failed = lazy(() => import('./pages/payment/Failed'));
+const StreamVideo = lazy(() => import('./pages/Features/StreamVideos'));
 
 //private (seller)
 const AddProducts = lazy(() => import('./pages/payment/AddProducts'));
@@ -80,6 +81,7 @@ function App() {
             <Route path='/send-bulk-emails' element={<Layout><SendEmails /></Layout>} />
             <Route path='/payment-success' element={<Success />} />
             <Route path='/payment-failed' element={<Failed />} />
+            <Route path='/stream-videos' element={<Layout><StreamVideo /></Layout>} />
           </Route>
 
           {/* public */}

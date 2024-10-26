@@ -180,7 +180,7 @@ const Profile = () => {
         <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
         <link rel="canonical" href="https://imuv21.netlify.app/profile" />
       </Helmet>
-      <div className="page flex center-start">
+      <div className="page flex center-start" style={{height: '100vh'}}>
         <div className="profile flexcol start">
           <h1 className="heading black">Profile</h1>
           <div className="pagebox10 flexcol start-center">

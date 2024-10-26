@@ -44,8 +44,13 @@ const FeatureDashboard = () => {
       name: "Send Emails in Bulk",
       img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1729337450/MarketPlace/Assets/VRSN_CompanyBrandedEmail_BlogImage8_201712-670x446_oz7joo.png",
       id: 27
-    }
-  ]; 
+    },
+    {
+      name: "Stream Videos",
+      img: "https://res.cloudinary.com/dfsohhjfo/image/upload/v1729924743/MarketPlace/Assets/video-streaming-icon-design-illustration-vector_hjdzkd.jpg",
+      id: 28
+    },
+  ];
 
   const open = (id) => {
     switch (id) {
@@ -69,6 +74,9 @@ const FeatureDashboard = () => {
         break;
       case 27:
         navigate('/send-bulk-emails');
+        break;
+      case 28:
+        navigate('/stream-videos');
         break;
       default:
         navigate('/feature-dashboard');
