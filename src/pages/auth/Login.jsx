@@ -73,7 +73,7 @@ const Login = () => {
         <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
         <link rel="canonical" href="https://imuv21.netlify.app/login" />
       </Helmet>
-      <div className='authpage flex center'>
+      <div className='authpage flex center' style={{height: '100vh'}}>
         <form className="box flexcol center" onSubmit={handleLogin}>
           {/* <button onClick={loginWithGoogle}>Sign in with google</button>
           <div className="heading wh blue" style={{textAlign: 'center'}}>OR</div> */}

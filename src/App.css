@@ -411,7 +411,6 @@ button:focus {
 .authpage {
   background: var(--top);
   width: 100%;
-  height: 100vh;
   padding: 60px 100px;
   gap: 20px;
 }
@@ -1126,11 +1125,15 @@ button:focus {
 /* stream video */
 .video {
   width: 100%;
-  min-width: 350px;
-  max-width: 600px;
+  min-width: 340px;
+  max-width: 1000px;
   border-radius: 10px;
 }
-
+.quality {
+  width: 100%;
+  min-width: 330px;
+  max-width: 390px;
+}
 
 
 

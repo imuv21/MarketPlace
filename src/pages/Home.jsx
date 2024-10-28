@@ -10,7 +10,7 @@ const Home = () => {
         <meta name="description" content="One stop for everything you need on MaarketPlace"></meta>
         <link rel="canonical" href="https://imuv21.netlify.app/" />
       </Helmet>
-      <div className='page flexcol g5 center'>
+      <div className='page flexcol g5 center' style={{height: '100vh'}}>
         <h1 className="text">Home page</h1>
       </div>
     </Fragment>

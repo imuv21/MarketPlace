@@ -126,7 +126,7 @@ const Otp = () => {
                 <link rel="canonical" href="https://imuv21.netlify.app/verify-otp" />
             </Helmet>
 
-            <div className='authpage flex center'>
+            <div className='authpage flex center' style={{height: '100vh'}}>
                 <div className="box flexcol center" style={{ gap: '30px' }}>
                     <h1 className="heading flex center blue">Enter the OTP sent to your email</h1>
 
