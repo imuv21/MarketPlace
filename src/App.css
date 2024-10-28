@@ -1123,7 +1123,13 @@ button:focus {
   aspect-ratio: 4/3;
 }
 
-
+/* stream video */
+.video {
+  width: 100%;
+  min-width: 350px;
+  max-width: 600px;
+  border-radius: 10px;
+}
 
 
 
